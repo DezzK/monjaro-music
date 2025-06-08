@@ -21,7 +21,7 @@
 		>
 
 		<activity
-			android:name="mohsen.muhammad.minimalist.app.main.MainActivity"
+			android:name="com.github.dezzk.monjaro_music.app.main.MainActivity"
 			android:screenOrientation="portrait"
 			android:launchMode="singleInstance"
 			android:exported="true"

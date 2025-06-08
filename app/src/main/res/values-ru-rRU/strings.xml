@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="appName">Monjaro Music</string>
+	<string name="minimalistMusicPlayer">Музыкальный проигрыватель Monjaro</string>
+	<string name="welcomeMessage">Добро пожаловать!</string>
+	<string name="descriptionRecyclerItemTypeTrack">трэк</string>
+	<string name="permissionMessage">Требуется разрешение на доступ к хранилищу</string>
+	<string name="permissionMessageSubtitle">Нажмите в любом месте для запроса на доступ к хранилищу</string>
+	<string name="notificationChannelName">Нотификация воспроизведения</string>
+	<string name="notificationChannelDescription">Показывает нотификацию воспроизведения приложения</string>
+	<string name="album_art">Обложка альбома</string>
+	<string name="system">Системная</string>
+	<string name="dark">Тёмная</string>
+	<string name="light">Светлая</string>
+	<string name="seekJump">Грубое позиционирование</string>
+	<string name="shuffle">Перемешать</string>
+	<string name="repeat">Повтор</string>
+	<string name="privacyPolicy">Политика приватности</string>
+	<string name="settingsButtonContentDescription">Настройки</string>
+	<string name="albumArtButtonContentDescription">Развернуть/свернуть обложку</string>
+	<string name="previousButtonContentDescription">Предыдущий</string>
+	<string name="playPauseButtonContentDescription">Воспроизведение/пауза</string>
+	<string name="nextButtonContentDescription">Следующий</string>
+	<string name="selectedTracks">Воспроизведение выбранных треков</string>
+	<string name="backButton">Назад</string>
+	<string name="addToSelected">Добавить в выбранное</string>
+	<string name="cancelButton">Отмена</string>
+	<string name="search">Поиск</string>
+	<string name="sleepTimer">Таймер сна</string>
+	<string name="sleepTimerToggle">Переключить таймер сна</string>
+	<string name="seekJumpValue">%1$d секунд</string>
+	<string name="equalizer">Эквалайзер</string>
+	<string name="noEqualizer">Эквалайзер не найден</string>
+	<string name="playbackSpeed">Скорость воспроизведения</string>
+</resources>

@@ -17,7 +17,7 @@
 		/>
 
 	<!-- note: use 'clickable' to prevent clicks from going through it down to the scrim -->
-	<mohsen.muhammad.minimalist.core.ExtendedConstraintLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout
 		android:id="@+id/settingsSheet"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 			app:layout_constraintTop_toTopOf="parent"
 			>
 
-			<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+			<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 				android:id="@+id/buttonThemeLight"
 				style="@style/settingsSheetButton"
 				android:layout_marginStart="@dimen/spacingLarge"
@@ -57,7 +57,7 @@
 				app:strokeWidth="0dp"
 				>
 
-				<mohsen.muhammad.minimalist.core.ExtendedImageView
+				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
 					android:padding="@dimen/spacingExtraMedium"
 					android:contentDescription="@string/light"
@@ -76,7 +76,7 @@
 					android:textSize="@dimen/textLarge"
 					/>
 
-			</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+			</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 			<View
 				android:layout_width="1dp"
@@ -88,7 +88,7 @@
 				android:background="@color/subSettingsBorder"
 				/>
 
-			<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+			<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 				android:id="@+id/buttonThemeSystem"
 				style="@style/settingsSheetButton"
 				android:layout_marginHorizontal="@dimen/spacingSmall"
@@ -99,7 +99,7 @@
 				app:strokeWidth="0dp"
 				>
 
-				<mohsen.muhammad.minimalist.core.ExtendedImageView
+				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
 					android:padding="@dimen/spacingExtraMedium"
 					android:contentDescription="@string/system"
@@ -118,7 +118,7 @@
 					android:textSize="@dimen/textLarge"
 					/>
 
-			</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+			</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 			<View
 				android:layout_width="1dp"
@@ -130,7 +130,7 @@
 				android:background="@color/subSettingsBorder"
 				/>
 
-			<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+			<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 				android:id="@+id/buttonThemeDark"
 				style="@style/settingsSheetButton"
 				android:layout_marginStart="@dimen/spacingSmall"
@@ -141,7 +141,7 @@
 				app:strokeWidth="0dp"
 				>
 
-				<mohsen.muhammad.minimalist.core.ExtendedImageView
+				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
 					android:padding="@dimen/spacingExtraMedium"
 					android:contentDescription="@string/dark"
@@ -159,17 +159,15 @@
 					android:textSize="@dimen/textLarge"
 					/>
 
-			</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+			</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 		</androidx.appcompat.widget.LinearLayoutCompat>
 
 		<!-- sleep timer -->
-		<mohsen.muhammad.minimalist.core.ExtendedConstraintLayout
+		<com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout
 			android:id="@+id/sleepTimerBar"
 			android:layout_width="match_parent"
-			android:layout_height="64dp"
-			android:layout_marginStart="@dimen/spacingLarge"
-			android:layout_marginEnd="@dimen/spacingLarge"
+			android:layout_height="128dp"
 			android:animateLayoutChanges="true"
 			android:clickable="false"
 			android:elevation="@dimen/elevationMedium"
@@ -178,6 +176,7 @@
 			app:layout_constraintTop_toBottomOf="@id/themeBar"
 			app:strokeColor="@color/mainSettingsBorder"
 			app:strokeWidth="1dp"
+			tools:layout_editor_absoluteX="32dp"
 			>
 
 			<SeekBar
@@ -185,12 +184,12 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_marginEnd="57dp"
+				android:clickable="false"
 				android:max="180"
 				android:maxHeight="900dp"
 				android:padding="0dp"
 				android:progressDrawable="@drawable/style_seek_bar_progress_settings_2"
 				android:thumb="@null"
-				android:clickable="false"
 				tools:progress="130"
 				/>
 
@@ -199,11 +198,11 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_marginEnd="57dp"
+				android:background="@null"
 				android:max="180"
 				android:maxHeight="900dp"
 				android:padding="0dp"
 				android:progressDrawable="@drawable/style_seek_bar_progress_settings_2"
-				android:background="@null"
 				android:thumb="@null"
 				tools:progress="100"
 				/>
@@ -212,8 +211,8 @@
 				android:id="@+id/sleepTimerLabel"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/spacingMediumLarge"
 				android:layout_marginStart="@dimen/spacingLarge"
+				android:layout_marginTop="@dimen/spacingMediumLarge"
 				android:text="@string/sleepTimer"
 				android:textColor="@color/alwaysWhite"
 				android:textSize="@dimen/textLarge"
@@ -256,7 +255,7 @@
 				app:layout_constraintTop_toTopOf="parent"
 				/>
 
-			<mohsen.muhammad.minimalist.core.ExtendedImageButton
+			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/sleepTimerToggle"
 				android:layout_width="@dimen/imageButtonContainerSize"
 				android:layout_height="match_parent"
@@ -275,22 +274,21 @@
 				app:layout_constraintEnd_toEndOf="parent"
 				/>
 
-		</mohsen.muhammad.minimalist.core.ExtendedConstraintLayout>
+		</com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout>
 
 		<!-- seek jump -->
-		<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+		<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 			android:id="@+id/seekJumpBar"
 			android:layout_width="match_parent"
-			android:layout_height="64dp"
-			android:layout_marginStart="@dimen/spacingLarge"
+			android:layout_height="128dp"
 			android:layout_marginTop="@dimen/spacingLarge"
-			android:layout_marginEnd="@dimen/spacingLarge"
 			android:animateLayoutChanges="true"
 			android:clickable="false"
 			android:elevation="@dimen/elevationMedium"
 			app:cornerRadius="@dimen/cornerRadiusLarge"
 			app:fillColor="@color/alwaysBlack"
 			app:layout_constraintTop_toBottomOf="@id/sleepTimerBar"
+			tools:layout_editor_absoluteX="32dp"
 			>
 
 			<SeekBar
@@ -332,7 +330,7 @@
 
 			</LinearLayout>
 
-			<mohsen.muhammad.minimalist.core.ExtendedImageView
+			<com.github.dezzk.monjaro_music.core.ExtendedImageView
 				android:layout_width="@dimen/imageButtonContainerSize"
 				android:layout_height="@dimen/imageButtonContainerSize2"
 				android:layout_gravity="center|end"
@@ -342,22 +340,21 @@
 				android:tint="@color/alwaysWhite"
 				/>
 
-		</mohsen.muhammad.minimalist.core.ExtendedFrameLayout>
+		</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
 
 		<!-- playback speed -->
-		<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+		<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 			android:id="@+id/playbackSpeedBar"
 			android:layout_width="match_parent"
-			android:layout_height="64dp"
-			android:layout_marginStart="@dimen/spacingLarge"
+			android:layout_height="128dp"
 			android:layout_marginTop="@dimen/spacingLarge"
-			android:layout_marginEnd="@dimen/spacingLarge"
 			android:animateLayoutChanges="true"
 			android:clickable="false"
 			android:elevation="@dimen/elevationMedium"
 			app:cornerRadius="@dimen/cornerRadiusLarge"
 			app:fillColor="@color/alwaysBlack"
 			app:layout_constraintTop_toBottomOf="@id/seekJumpBar"
+			tools:layout_editor_absoluteX="32dp"
 			>
 
 			<SeekBar
@@ -399,7 +396,7 @@
 
 			</LinearLayout>
 
-			<mohsen.muhammad.minimalist.core.ExtendedImageView
+			<com.github.dezzk.monjaro_music.core.ExtendedImageView
 				android:layout_width="@dimen/imageButtonContainerSize"
 				android:layout_height="@dimen/imageButtonContainerSize2"
 				android:layout_gravity="center|end"
@@ -409,7 +406,7 @@
 				android:tint="@color/alwaysWhite"
 				/>
 
-		</mohsen.muhammad.minimalist.core.ExtendedFrameLayout>
+		</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
 
 		<!-- shuffle / repeat / eq -->
 		<androidx.appcompat.widget.LinearLayoutCompat
@@ -423,7 +420,7 @@
 			>
 
 			<!-- shuffle -->
-			<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+			<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 				android:id="@+id/buttonShuffle"
 				style="@style/settingsSheetButton"
 				android:layout_marginVertical="0dp"
@@ -435,7 +432,7 @@
 				app:strokeWidth="1dp"
 				>
 
-				<mohsen.muhammad.minimalist.core.ExtendedImageView
+				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					android:id="@+id/iconShuffle"
 					style="@style/floatingButtonOmniStyle2"
 					android:contentDescription="@string/shuffle"
@@ -455,10 +452,10 @@
 					android:textSize="@dimen/textLarge"
 					/>
 
-			</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+			</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 			<!-- repeat -->
-			<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+			<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 				android:id="@+id/buttonRepeat"
 				style="@style/settingsSheetButton"
 				android:layout_marginVertical="0dp"
@@ -471,7 +468,7 @@
 				app:strokeWidth="1dp"
 				>
 
-				<mohsen.muhammad.minimalist.core.ExtendedImageView
+				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					android:id="@+id/iconRepeat"
 					style="@style/floatingButtonOmniStyle2"
 					android:contentDescription="@string/repeat"
@@ -491,10 +488,10 @@
 					android:textSize="@dimen/textLarge"
 					/>
 
-			</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+			</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 			<!-- eq -->
-			<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+			<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 				android:id="@+id/buttonEq"
 				style="@style/settingsSheetButton"
 				android:layout_marginVertical="0dp"
@@ -506,7 +503,7 @@
 				app:strokeWidth="1dp"
 				>
 
-				<mohsen.muhammad.minimalist.core.ExtendedImageView
+				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
 					android:contentDescription="@string/repeat"
 					android:src="@drawable/ic_eq"
@@ -525,12 +522,12 @@
 					android:textSize="@dimen/textLarge"
 					/>
 
-			</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+			</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 		</androidx.appcompat.widget.LinearLayoutCompat>
 
 		<!-- Privacy Policy -->
-		<mohsen.muhammad.minimalist.core.ExtendedButton
+		<com.github.dezzk.monjaro_music.core.ExtendedButton
 			android:id="@+id/buttonPrivacyPolicy"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -544,6 +541,6 @@
 			app:layout_constraintTop_toBottomOf="@id/shuffleRepeatBar"
 			/>
 
-	</mohsen.muhammad.minimalist.core.ExtendedConstraintLayout>
+	</com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout>
 
 </FrameLayout>

@@ -11,7 +11,7 @@
 	>
 
 	<!--Panel-->
-	<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:paddingTop="@dimen/spacingMediumLarge"
@@ -141,10 +141,10 @@
 
 		</LinearLayout>
 
-	</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+	</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 	<!--Background-->
-	<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 		android:id="@+id/fabMenuBackground"
 		android:layout_width="@dimen/fabMenuExpandedBackgroundRadius"
 		android:layout_height="@dimen/fabMenuExpandedBackgroundRadius"
@@ -163,7 +163,7 @@
 		/>
 
 	<!--Next-->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonNext"
 		android:src="@drawable/next000"
 		app:layout_constraintCircleAngle="356"
@@ -173,7 +173,7 @@
 		/>
 
 	<!--Repeat-->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonRepeat"
 		android:src="@drawable/repeat015"
 		app:layout_constraintCircleAngle="321"
@@ -183,7 +183,7 @@
 		/>
 
 	<!--Shuffle-->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonShuffle"
 		android:src="@drawable/shuffle015"
 		app:layout_constraintCircleAngle="286"
@@ -193,7 +193,7 @@
 		/>
 
 	<!--Previous-->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonPrev"
 		android:src="@drawable/next000"
 		android:rotation="180"
@@ -204,7 +204,7 @@
 		/>
 
 	<!--Omni button-->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonOmni"
 		android:layout_marginEnd="@dimen/spacingLarge"
 		android:layout_marginBottom="76dp"
@@ -216,7 +216,7 @@
 		/>
 
 	<!--fab overlay (for animations and whatnot)-->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/fabButtonAnimationOverlay"
 		android:layout_marginBottom="76dp"
 		android:visibility="gone"

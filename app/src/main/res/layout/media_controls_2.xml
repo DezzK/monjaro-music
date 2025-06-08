@@ -10,7 +10,7 @@
 	>
 
 	<!-- Main Panel -->
-	<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 		android:id="@+id/mainPanel"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/seekBarHeight"
@@ -37,7 +37,7 @@
 			android:thumb="@null"
 			/>
 
-		<mohsen.muhammad.minimalist.core.ExtendedImageView
+		<com.github.dezzk.monjaro_music.core.ExtendedImageView
 			android:id="@+id/imageViewAlbumArt"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
@@ -48,7 +48,7 @@
 			/>
 
 		<!-- Chapters -->
-		<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+		<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 			android:id="@+id/frameLayoutChapters"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/chapterIndicatorHeight"
@@ -166,9 +166,9 @@
 			tools:text="4:08"
 			/>
 
-	</mohsen.muhammad.minimalist.core.ExtendedFrameLayout>
+	</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
 
-	<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="-24dp"
@@ -181,7 +181,7 @@
 		>
 
 		<!-- Previous -->
-		<mohsen.muhammad.minimalist.core.ExtendedImageButton
+		<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 			android:id="@+id/buttonPrev"
 			style="@style/floatingButtonOmniStyle2"
 			android:tint="@color/alwaysOffBlack"
@@ -194,7 +194,7 @@
 			/>
 
 		<!-- Omni button -->
-		<mohsen.muhammad.minimalist.core.ExtendedImageButton
+		<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 			android:id="@+id/buttonOmni"
 			style="@style/floatingButtonOmniStyle2"
 			android:contentDescription="@string/playPauseButtonContentDescription"
@@ -204,7 +204,7 @@
 			/>
 
 		<!-- Next -->
-		<mohsen.muhammad.minimalist.core.ExtendedImageButton
+		<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 			android:id="@+id/buttonNext"
 			style="@style/floatingButtonOmniStyle2"
 			android:tint="@color/alwaysOffBlack"
@@ -215,10 +215,10 @@
 			app:cornerRadiusBottomRight="@dimen/cornerRadiusLarge"
 			/>
 
-	</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+	</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 	<!-- Expand/Collapse -->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonAlbumArt"
 		android:src="@drawable/expand_collapse000"
 		style="@style/floatingButtonOmniStyle2"
@@ -234,7 +234,7 @@
 		/>
 
 	<!-- settings -->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonSettings"
 		android:src="@drawable/ic_settings"
 		style="@style/floatingButtonOmniStyle2"
@@ -248,7 +248,7 @@
 		/>
 
 	<!-- search -->
-	<mohsen.muhammad.minimalist.core.ExtendedImageButton
+	<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 		android:id="@+id/buttonSearch"
 		android:src="@drawable/ic_search"
 		style="@style/floatingButtonOmniStyle2"

@@ -11,15 +11,15 @@
 	<!-- Explorer -->
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/recyclerViewExplorer"
+		style="@style/scrollbarStyle"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginBottom="64dp"
-		android:paddingTop="80dp"
-		android:paddingBottom="92dp"
+		android:layout_marginBottom="128dp"
 		android:clipToPadding="false"
+		android:paddingTop="160dp"
+		android:paddingBottom="184dp"
 		android:scrollbars="vertical"
 		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-		style="@style/scrollbarStyle"
 		tools:listitem="@layout/explorer_item"
 		/>
 

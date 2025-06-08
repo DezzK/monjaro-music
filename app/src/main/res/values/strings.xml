@@ -1,7 +1,7 @@
 <resources>
 
-	<string name="appName">Minimalist</string>
-	<string name="minimalistMusicPlayer">Minimalist Music Player</string>
+	<string name="appName">Monjaro Music</string>
+	<string name="minimalistMusicPlayer">Monjaro Music Player</string>
 	<string name="welcomeMessage">Welcome!</string>
 
 	<string name="descriptionRecyclerItemTypeTrack">track</string>

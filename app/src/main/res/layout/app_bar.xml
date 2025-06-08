@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
@@ -10,61 +10,61 @@
 	>
 
 	<!-- breadcrumb bar -->
-	<mohsen.muhammad.minimalist.core.ExtendedLinearLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
 		android:id="@+id/breadcrumbBarContainer"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_margin="@dimen/spacingLarge"
+		android:elevation="@dimen/elevationMedium"
 		android:gravity="center_vertical"
 		android:orientation="horizontal"
-		android:elevation="@dimen/elevationMedium"
+		app:cornerRadius="@dimen/cornerRadiusLarge"
 		app:fillColor="@color/breadcrumbBackground"
 		app:strokeColor="@color/breadcrumbBorder"
 		app:strokeWidth="1dp"
-		app:cornerRadius="@dimen/cornerRadiusLarge"
 		tools:visibility="gone"
 		>
 
 		<!--back button-->
-		<mohsen.muhammad.minimalist.core.ExtendedImageButton
+		<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 			android:id="@+id/buttonBack"
 			style="@style/floatingButtonOmniStyle2"
-			android:src="@drawable/anim_back_root"
 			android:layout_margin="1dp"
 			android:contentDescription="@string/backButton"
-			app:fillColor="@color/breadcrumbBackground"
+			android:src="@drawable/anim_back_root"
 			android:tint="@color/breadcrumbForeground"
-			app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
 			app:cornerRadiusBottomLeft="@dimen/cornerRadiusLarge"
+			app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
+			app:fillColor="@color/breadcrumbBackground"
 			/>
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/recyclerViewBreadcrumbs"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:layout_marginBottom="1dp"
 			android:layout_marginEnd="@dimen/spacingMedium"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			android:layout_marginBottom="1dp"
+			android:layout_weight="1"
 			android:orientation="horizontal"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			tools:listitem="@layout/breadcrumb_bar_item"
 			/>
 
-	</mohsen.muhammad.minimalist.core.ExtendedLinearLayout>
+	</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 
 	<!-- multi-select/search bar -->
 	<FrameLayout
 		android:id="@+id/multiSelectBarContainer"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="@dimen/spacingLarge"
-		android:background="@color/mainBackground"
 		android:alpha="@dimen/transparent"
-		android:visibility="gone"
+		android:background="@color/mainBackground"
 		android:clickable="true"
 		android:clipChildren="false"
-		tools:visibility="visible"
+		android:paddingTop="@dimen/spacingLarge"
+		android:visibility="gone"
 		tools:alpha="@dimen/opaque"
+		tools:visibility="visible"
 		>
 
 		<!-- multi-select bar -->
@@ -73,22 +73,22 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
+			android:background="@color/mainBackground"
 			android:gravity="center_vertical"
 			android:orientation="horizontal"
-			android:background="@color/mainBackground"
 			>
 
 			<!-- cancel button -->
-			<mohsen.muhammad.minimalist.core.ExtendedImageButton
+			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/buttonCancel"
 				style="@style/floatingButtonOmniStyle2"
+				android:layout_marginStart="@dimen/spacingSmall"
 				android:layout_marginTop="1dp"
 				android:layout_marginBottom="1dp"
-				android:layout_marginStart="@dimen/spacingSmall"
-				android:src="@drawable/ic_cancel"
 				android:contentDescription="@string/cancelButton"
-				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
+				android:src="@drawable/ic_cancel"
 				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
+				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
 				app:fillColor="@color/mainBackground"
 				app:tint="@color/breadcrumbForegroundDark"
 				/>
@@ -97,10 +97,10 @@
 				android:id="@+id/textContainer"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
 				android:layout_marginStart="@dimen/spacingSmallMedium"
 				android:layout_marginEnd="@dimen/spacingSmallMedium"
 				android:layout_marginBottom="1dp"
+				android:layout_weight="1"
 				android:gravity="center|start"
 				>
 
@@ -110,12 +110,12 @@
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:textSize="@dimen/textLarge"
-					android:maxLines="1"
-					android:inputType="text"
+					android:background="@null"
 					android:hint="@string/search"
 					android:imeOptions="actionDone"
-					android:background="@null"
+					android:inputType="text"
+					android:maxLines="1"
+					android:textSize="@dimen/textLarge"
 					tools:ignore="NestedWeights"
 					/>
 
@@ -148,11 +148,11 @@
 			</LinearLayout>
 
 			<!-- add button -->
-			<mohsen.muhammad.minimalist.core.ExtendedImageButton
+			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/buttonAddSelection"
 				style="@style/floatingButtonOmniStyle2"
-				android:src="@drawable/ic_add"
 				android:contentDescription="@string/addToSelected"
+				android:src="@drawable/ic_add"
 				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
 				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
 				app:fillColor="@color/mainBackground"
@@ -160,12 +160,12 @@
 				/>
 
 			<!-- play selected button -->
-			<mohsen.muhammad.minimalist.core.ExtendedImageButton
+			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/buttonPlaySelected"
 				style="@style/floatingButtonOmniStyle2"
-				android:src="@drawable/ic_play_selected"
 				android:layout_marginEnd="@dimen/spacingSmall"
 				android:contentDescription="@string/selectedTracks"
+				android:src="@drawable/ic_play_selected"
 				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
 				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
 				app:fillColor="@color/mainBackground"
@@ -177,11 +177,11 @@
 		<!-- separator -->
 		<View
 			android:layout_width="match_parent"
-			android:layout_height="1dp"
+			android:layout_height="2dp"
 			android:layout_gravity="bottom"
 			android:background="@color/multiSelectBorder"
 			/>
 
 	</FrameLayout>
 
-</mohsen.muhammad.minimalist.core.ExtendedFrameLayout>
+</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>

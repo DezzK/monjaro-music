@@ -7,7 +7,7 @@
 	android:layout_height="wrap_content"
 	>
 
-	<mohsen.muhammad.minimalist.core.ExtendedFrameLayout
+	<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 		android:id="@+id/crumbButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
 			tools:text="Directory"
 			/>
 
-	</mohsen.muhammad.minimalist.core.ExtendedFrameLayout>
+	</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
 
 	<TextView
 		android:layout_width="wrap_content"
