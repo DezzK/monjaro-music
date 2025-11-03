@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-	<uses-feature android:name="android.hardware.screen.portrait"/>
+	<uses-feature android:name="android.hardware.screen.landscape"/>
 
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
 	<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -22,7 +23,7 @@
 
 		<activity
 			android:name="com.github.dezzk.monjaro_music.app.main.MainActivity"
-			android:screenOrientation="portrait"
+			android:screenOrientation="landscape"
 			android:launchMode="singleInstance"
 			android:exported="true"
 			tools:ignore="LockedOrientationActivity"

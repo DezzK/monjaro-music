@@ -32,4 +32,6 @@
 	<string name="equalizer">Эквалайзер</string>
 	<string name="noEqualizer">Эквалайзер не найден</string>
 	<string name="playbackSpeed">Скорость воспроизведения</string>
+	<string name="deleteFilesCaption">Удаление</string>
+	<string name="deleteFilesText">Удалить выбранные файлы?</string>
 </resources>

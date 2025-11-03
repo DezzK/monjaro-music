@@ -47,6 +47,12 @@ class Playlist(private val preferences: SharedPreferences) {
 		return tracks.contains(track)
 	}
 
+	fun removeAll(tracks: ArrayList<String>) {
+		this.tracks.removeAll(tracks)
+
+		preferences.put(State.Key.PLAYLIST, this.tracks.joinToString(";"))
+	}
+
 	fun getPreviousTrack(): String? {
 		if (tracks.size == 0) return null
 

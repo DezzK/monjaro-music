@@ -5,7 +5,7 @@
 	<color name="mainForeground">#EEE</color>
 
 	<color name="explorerForegroundLight">#AAA</color>
-	<color name="explorerSelection">#222</color>
+	<color name="explorerSelection">#666</color>
 
 	<color name="breadcrumbBackground">#000</color>
 	<color name="breadcrumbForeground">#DDD</color>
@@ -13,8 +13,10 @@
 	<color name="breadcrumbBorder">#333</color>
 	<color name="multiSelectBorder">#333</color> <!-- #101010 used for select bar, and settings sheet border -->
 
-	<color name="seekProgress">#999</color>
+	<color name="seekProgress">#666</color>
 	<color name="seekBackground">#161616</color>
+	<color name="seekPrimary">#FFF</color>
+	<color name="seekSecondary">#EEE</color>
 
 	<color name="mainSettingsBorder">#333</color> <!-- used for black buttons -->
 	<color name="subSettingsBorder">#333</color> <!-- used for theme buttons -->

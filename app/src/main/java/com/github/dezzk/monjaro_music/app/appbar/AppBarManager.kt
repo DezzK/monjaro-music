@@ -1,9 +1,11 @@
 package com.github.dezzk.monjaro_music.app.appbar
 
 import android.content.Context
+import android.content.DialogInterface
 import android.text.Editable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.github.dezzk.monjaro_music.R
 import com.github.dezzk.monjaro_music.core.Moirai
@@ -97,6 +99,32 @@ class AppBarManager(mainBinding: MainFragmentBinding) : EventBus.Subscriber, OnL
 			EventBus.send(SystemEvent(EventSource.BREADCRUMB, EventType.PLAY_SELECTED))
 			toggleEditMode(false)
 		}
+		// set the delete file button listener
+		binding.buttonDeleteSelected.setOnClickListener {
+			AlertDialog.Builder(binding.context)
+				.setTitle(R.string.deleteFilesCaption)
+				.setMessage(R.string.deleteFilesText)
+				.setPositiveButton(android.R.string.ok, object : DialogInterface.OnClickListener {
+					override fun onClick(dialog: DialogInterface?, which: Int) {
+						State.playlist.removeAll(State.selectedTracks)
+
+						for (absolutePath in State.selectedTracks) {
+							val file = File(absolutePath)
+							file.delete()
+						}
+
+						State.selectedTracks.clear() // update the state
+						toggleEditMode(false)
+						EventBus.send(SystemEvent(EventSource.BREADCRUMB, EventType.SELECT_MODE_INACTIVE))
+						EventBus.send(SystemEvent(EventSource.BREADCRUMB, EventType.DIR_CHANGE))
+					}
+				})
+				.setNegativeButton(android.R.string.cancel, null)
+				.setIconAttribute(android.R.attr.alertDialogIcon)
+				.show()
+
+
+		}
 
 		binding.editTextQuery.addTextChangedListener(object : OnTextChangeListener {
 			override fun afterTextChanged(s: Editable?) {
@@ -161,7 +189,7 @@ class AppBarManager(mainBinding: MainFragmentBinding) : EventBus.Subscriber, OnL
 		}
 	}
 	private fun toggleSelectMode() {
-		arrayOf(binding.textViewSelectionCount, binding.buttonAddSelection, binding.buttonPlaySelected).forEach { v: View ->
+		arrayOf(binding.textViewSelectionCount, binding.buttonAddSelection, binding.buttonPlaySelected, binding.buttonDeleteSelected).forEach { v: View ->
 			if (State.isSelectModeActive) v.fadeIn(200L)
 			else v.fadeOut(200L)
 		}
@@ -183,7 +211,7 @@ class AppBarManager(mainBinding: MainFragmentBinding) : EventBus.Subscriber, OnL
 			binding.breadcrumbBarContainer.fadeIn(200L)
 			binding.breadcrumbBarContainer.animateLayoutMargins(R.dimen.spacingLarge, 200L)
 			binding.multiSelectBarContainer.fadeOut(200L)
-			binding.multiSelectBarContainer.animateLayoutMargins(R.dimen.spacingLarge, R.dimen.spacingZero, 200L)
+			binding.multiSelectBarContainer.animateLayoutMargins(R.dimen.spacingExtraMedium, R.dimen.spacingZero, 200L)
 		}
 
 		if (!force) toggleSearchMode() // to clear the filter, dismiss the IME, etc.

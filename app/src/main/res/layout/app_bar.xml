@@ -28,7 +28,7 @@
 		<!--back button-->
 		<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 			android:id="@+id/buttonBack"
-			style="@style/floatingButtonOmniStyle2"
+			style="@style/floatingButtonOmniStyle3"
 			android:layout_margin="1dp"
 			android:contentDescription="@string/backButton"
 			android:src="@drawable/anim_back_root"
@@ -57,14 +57,14 @@
 		android:id="@+id/multiSelectBarContainer"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/spacingExtraMedium"
 		android:alpha="@dimen/transparent"
 		android:background="@color/mainBackground"
 		android:clickable="true"
 		android:clipChildren="false"
-		android:paddingTop="@dimen/spacingLarge"
-		android:visibility="gone"
+		android:paddingTop="@dimen/spacingMedium"
+		android:visibility="visible"
 		tools:alpha="@dimen/opaque"
-		tools:visibility="visible"
 		>
 
 		<!-- multi-select bar -->
@@ -81,10 +81,8 @@
 			<!-- cancel button -->
 			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/buttonCancel"
-				style="@style/floatingButtonOmniStyle2"
+				style="@style/floatingButtonOmniStyle3"
 				android:layout_marginStart="@dimen/spacingSmall"
-				android:layout_marginTop="1dp"
-				android:layout_marginBottom="1dp"
 				android:contentDescription="@string/cancelButton"
 				android:src="@drawable/ic_cancel"
 				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
@@ -150,7 +148,8 @@
 			<!-- add button -->
 			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/buttonAddSelection"
-				style="@style/floatingButtonOmniStyle2"
+				style="@style/floatingButtonOmniStyle3"
+				android:layout_weight="0"
 				android:contentDescription="@string/addToSelected"
 				android:src="@drawable/ic_add"
 				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
@@ -162,10 +161,26 @@
 			<!-- play selected button -->
 			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
 				android:id="@+id/buttonPlaySelected"
-				style="@style/floatingButtonOmniStyle2"
+				style="@style/floatingButtonOmniStyle3"
 				android:layout_marginEnd="@dimen/spacingSmall"
+				android:layout_weight="0"
 				android:contentDescription="@string/selectedTracks"
 				android:src="@drawable/ic_play_selected"
+				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
+				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
+				app:fillColor="@color/mainBackground"
+				app:tint="@color/breadcrumbForegroundDark"
+				/>
+
+			<com.github.dezzk.monjaro_music.core.ExtendedImageButton
+				android:id="@+id/buttonDeleteSelected"
+				style="@style/floatingButtonOmniStyle3"
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:layout_marginEnd="@dimen/spacingSmall"
+				android:layout_weight="0"
+				android:contentDescription="@string/selectedTracks"
+				android:src="@drawable/ic_delete_forever"
 				app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
 				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
 				app:fillColor="@color/mainBackground"

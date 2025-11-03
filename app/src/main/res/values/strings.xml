@@ -49,4 +49,6 @@
 	<string name="playbackSpeed">Playback Speed</string>
 	<string name="playbackSpeedValue" translatable="false">%1$.2fx</string>
 
+	<string name="deleteFilesCaption">Delete</string>
+	<string name="deleteFilesText">Delete selected files?</string>
 </resources>

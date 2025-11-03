@@ -21,8 +21,8 @@
 			android:id="@+id/crumbText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textSize="@dimen/textLarge"
 			android:textColor="@color/breadcrumbForeground"
+			android:textSize="@dimen/textMedium"
 			tools:text="Directory"
 			/>
 
@@ -31,10 +31,10 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/breadcrumbSeparator"
 		android:padding="@dimen/spacingSmall"
+		android:text="@string/breadcrumbSeparator"
 		android:textColor="@color/breadcrumbForeground"
-		android:textSize="@dimen/textLarge"
+		android:textSize="@dimen/textMedium"
 		/>
 
 </LinearLayout>
