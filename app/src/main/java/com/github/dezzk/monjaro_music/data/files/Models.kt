@@ -8,13 +8,11 @@ import android.os.Environment
 import android.os.storage.StorageManager
 import android.util.Base64
 import androidx.annotation.RequiresApi
-import com.github.dezzk.monjaro_music.core.ext.EMPTY
 import com.github.dezzk.monjaro_music.data.Const
 import com.github.dezzk.monjaro_music.data.State
 import java.io.File
 import java.io.FileFilter
 import java.util.Arrays
-import java.util.Optional
 
 
 /**
@@ -26,10 +24,8 @@ import java.util.Optional
  * now, only the statics are useful
  */
 class ExplorerFile(
-	pathname: String,
-	var index: Optional<Int> = Optional.empty<Int>(),
-)
-	: File(pathname) {
+    pathname: String,
+) : File(pathname) {
 
 	// FileFilter implementation that accepts only visible directory/media files.
 	private class ExplorerFileFilter : FileFilter {
@@ -38,7 +34,7 @@ class ExplorerFile(
 		}
 	}
 
-	companion object {
+    companion object {
 
 		val ROOT: String = Environment.getExternalStorageDirectory().path // root directory (actually the internal storage directory!)
 
@@ -84,18 +80,11 @@ class ExplorerFile(
 				else o1.name.compareTo(o2.name, true) // if both are tracks, compare their names
 			}
 
-			var index = 1
-			for (f in files) {
-				var optIndex = Optional.empty<Int>()
-				if (!f.isDirectory) {
-					optIndex = Optional.of<Int>(index)
-					index++
-				}
-
-				fileModels.add(ExplorerFile(f.absolutePath, optIndex))
-			}
-			return fileModels
-		}
+            for (f in files) {
+                fileModels.add(ExplorerFile(f.absolutePath))
+            }
+            return fileModels
+        }
 
 		// After the scoped storage changes, we can't access the SD card from "/storage".listFiles() anymore :)
 		// this little guy returns them nonetheless

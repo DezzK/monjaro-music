@@ -48,7 +48,6 @@ class ExplorerAdapter(
 		with(holder) {
 			icon.setColorFilter(R.color.mainBackground)
 			icon.setImageResource(if (file.isDirectory) R.mipmap.ic_directory else R.mipmap.ic_track)
-			icon.visibility = if (file.isDirectory) View.VISIBLE else View.GONE
 			title.text = if (file.isDirectory)
 				file.name
 			else {
@@ -57,13 +56,6 @@ class ExplorerAdapter(
 				val artist = metadata.artist.trim()
 
 				if (artist.isEmpty()) title else "$artist - $title"
-			}
-			if (file.index.isPresent) {
-				index.text = "${file.index.get()}."
-				index.visibility = View.VISIBLE
-			}
-			else {
-				index.visibility = View.GONE
 			}
 
 			// text/icon color
@@ -152,7 +144,6 @@ class ExplorerAdapter(
 
 		val divider: View = binding.divider
 		val icon: ImageView = binding.imageViewIcon
-		val index: TextView = binding.textViewIndex
 		val title: TextView = binding.textViewTitle
 
 		val currentlyPlayingView: ExtendedFrameLayout = binding.frameLayoutCurrent
