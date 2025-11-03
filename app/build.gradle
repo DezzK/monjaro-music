@@ -3,17 +3,24 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdk 34
+    namespace 'com.github.dezzk.monjaro_music'
+
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "dezzk.monjaro_music"
-        minSdkVersion 27
-        targetSdkVersion 34
+        minSdkVersion 28
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 28
 
         versionCode 27
         versionName "4.1"
-        multiDexEnabled true
-        resourceConfigurations += []
+
+        versionCode rootProject.ext.appVersionCode
+        versionName rootProject.ext.appVersionName
+
+        // Set the output APK name
+        setProperty("archivesBaseName", "monjaro-music-${versionName}")
     }
 
     bundle {
@@ -26,47 +33,33 @@ android {
         viewBinding true
     }
 
+    compileOptions {
+        sourceCompatibility = '21'
+        targetCompatibility = '21'
+    }
+    kotlinOptions {
+        jvmTarget = '21'
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../keystore.jks')
+            storePassword System.getenv("KEY_PASSWORD")
+            keyAlias "key0"
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
             debuggable true
             applicationIdSuffix ".debug"
         }
-        internal {
-            minifyEnabled false
-            applicationIdSuffix ".debug"
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            ndk {
-                debugSymbolLevel 'NONE'
-            }
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    ndkVersion '22.0.7026061'
-	namespace 'com.github.dezzk.monjaro_music'
-
-    splits {
-        abi {
-            enable true
-            reset()
-            include "arm64-v8a"
-
-//            // Specifies that you don't want to also generate a universal APK that includes all ABIs.
-//            isUniversalApk = false
+            signingConfig signingConfigs.release
         }
     }
 }

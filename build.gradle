@@ -1,4 +1,28 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+String getVersionName() {
+	def envVersion = System.getenv('VERSION_NAME')
+	if (envVersion) {
+		return envVersion
+	}
+
+	logger.warn('Environment variable `VERSION_NAME` was not set, using default version')
+
+	return 'v1.0.0'
+}
+
+int getVersionCode() {
+	def version = getVersionName()
+	def (major, minor, patch) = version.replaceFirst('^v', '').replaceFirst('-\\w+$', '').tokenize('.').collect { it.toInteger() }
+
+	return major * 10000 + minor * 100 + (patch ?: 0)
+}
+
+ext {
+	appVersionName = getVersionName()
+	appVersionCode = getVersionCode()
+
+	println "Building version: ${appVersionName} (${appVersionCode})"
+}
 
 buildscript {
 	ext.kotlinVersion = '1.9.20'
