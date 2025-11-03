@@ -132,7 +132,6 @@ object State {
 				album = metadata.album
 				artist = metadata.artist
 				duration = metadata.duration
-				chapters = metadata.chapters
 
 			} catch (ex: Exception) { Log.e("State", "State.Track.update", ex) }
 		}

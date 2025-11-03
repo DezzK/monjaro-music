@@ -1,7 +1,7 @@
 package com.github.dezzk.monjaro_music.data.files
 
 import com.github.dezzk.monjaro_music.core.ext.EMPTY
-import wseemann.media.FFmpegMediaMetadataRetriever
+import android.media.MediaMetadataRetriever
 import java.io.File
 
 
@@ -20,27 +20,19 @@ class FileMetadata(private val file: File) {
 		get() = file.nameWithoutExtension
 
 	val artist: String
-		get() = retriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST) ?: String.EMPTY
+		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
+			?: String.EMPTY
 
 	val album: String
-		get() = retriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM) ?: file.parentFile?.name ?: String.EMPTY
+		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
+			?: file.parentFile?.name ?: String.EMPTY
 
 	val duration: Long
-		get() = retriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong() ?: 0L
-
-	private val chapterCount: Int
-		get() = retriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_CHAPTER_COUNT)?.toInt() ?: 0
-
-	val chapters: ArrayList<Chapter>
-		get() = ArrayList((0 until chapterCount).map {
-			Chapter(it, getChapterStartTime(it))
-		})
-
-	private fun getChapterStartTime(i: Int): Long =
-		retriever.extractMetadataFromChapter(FFmpegMediaMetadataRetriever.METADATA_KEY_CHAPTER_START_TIME, i)?.toLong() ?: 0
+		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong()
+			?: 0L
 
 	companion object {
-		private val retriever = FFmpegMediaMetadataRetriever()
+		private val retriever = MediaMetadataRetriever()
 	}
 
 }

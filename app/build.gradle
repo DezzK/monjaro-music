@@ -79,8 +79,4 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.media:media:1.7.0'
-
-    // metadata
-    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-core:1.0.19'
-    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-native:1.0.19'
 }
