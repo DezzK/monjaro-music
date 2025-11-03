@@ -53,10 +53,10 @@ class ExplorerAdapter(
 				file.name
 			else {
 				val metadata = FileMetadata(file)
-				val title = metadata.title.trim()
+				val title = metadata.title.trim().ifEmpty { file.nameWithoutExtension }
 				val artist = metadata.artist.trim()
 
-				title.ifEmpty { file.nameWithoutExtension } + if (artist.isEmpty()) "" else " ($artist)"
+				if (artist.isEmpty()) title else "$artist - $title"
 			}
 			if (file.index.isPresent) {
 				index.text = "${file.index.get()}."
