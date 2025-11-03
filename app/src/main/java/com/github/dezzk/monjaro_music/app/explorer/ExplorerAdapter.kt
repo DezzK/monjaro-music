@@ -43,17 +43,27 @@ class ExplorerAdapter(
 
 	// binds the ViewHolder with the content
 	override fun onBindViewHolder(holder: ExplorerViewHolder, position: Int) {
-
 		val file = files[position]
 		with(holder) {
-
 			icon.setColorFilter(R.color.mainBackground)
 			icon.setImageResource(if (file.isDirectory) R.mipmap.ic_directory else R.mipmap.ic_track)
-			title.text = file.name
+			icon.visibility = if (file.isDirectory) View.VISIBLE else View.GONE
+			title.text = if (file.isDirectory) file.name else file.name.replace("\\.[^.]+$".toRegex(), "")
+			if (file.index.isPresent) {
+				index.text = "${file.index.get()}."
+				index.visibility = View.VISIBLE
+			}
+			else {
+				index.visibility = View.GONE
+			}
 
 			// text/icon color
 			var itemColor = itemView.context.getColor(R.color.mainForeground)
 			if (!file.isDirectory && !State.playlist.contains(file.absolutePath)) itemColor = itemView.context.getColor(R.color.explorerForegroundLight)
+			if (position == 0)
+				divider.visibility = View.GONE
+			else
+				divider.visibility = View.VISIBLE
 			icon.setColorFilter(itemColor)
 			title.setTextColor(itemColor)
 
@@ -131,7 +141,9 @@ class ExplorerAdapter(
 	class ExplorerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		private val binding = ExplorerItemBinding.bind(itemView)
 
+		val divider: View = binding.divider
 		val icon: ImageView = binding.imageViewIcon
+		val index: TextView = binding.textViewIndex
 		val title: TextView = binding.textViewTitle
 
 		val currentlyPlayingView: ExtendedFrameLayout = binding.frameLayoutCurrent

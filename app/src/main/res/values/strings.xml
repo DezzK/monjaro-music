@@ -24,7 +24,6 @@
 	<string name="repeat">Repeat</string>
 	<string name="privacyPolicy">Privacy Policy</string>
 	<string name="settingsButtonContentDescription">Settings</string>
-	<string name="albumArtButtonContentDescription">Expand Collapse Album Art</string>
 	<string name="previousButtonContentDescription">Previous</string>
 	<string name="playPauseButtonContentDescription">Play/Pause</string>
 	<string name="nextButtonContentDescription">Next</string>

@@ -82,7 +82,7 @@ class MediaSessionManager(context: Context): MediaSessionCompat.Callback(), Even
 				stateBuilder.setState(PLAYING, 0, State.playbackSpeed)
 
 			EventType.SEEK_UPDATE_USER, EventType.PLAYBACK_SPEED ->
-				stateBuilder.setState(if (State.isPlaying) PLAYING else PAUSED, State.Track.seek.toLong(), if (State.isPlaying) State.playbackSpeed else 0F)
+				stateBuilder.setState(if (PlaybackManager.isPlaying) PLAYING else PAUSED, State.Track.seek.toLong(), if (PlaybackManager.isPlaying) State.playbackSpeed else 0F)
 		}
 		mediaSession.setPlaybackState(stateBuilder.build())
 
@@ -98,7 +98,6 @@ class MediaSessionManager(context: Context): MediaSessionCompat.Callback(), Even
 				putString(MediaMetadataCompat.METADATA_KEY_ARTIST, State.Track.artist)
 				putString(MediaMetadataCompat.METADATA_KEY_ALBUM, State.Track.album)
 				putLong(MediaMetadataCompat.METADATA_KEY_DURATION, State.Track.duration)
-				putEncodedBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, State.Track.albumArt) // that's why a background thread is used
 			}
 
 			mediaSession.isActive = true

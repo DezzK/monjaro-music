@@ -17,7 +17,6 @@
 	<string name="repeat">Повтор</string>
 	<string name="privacyPolicy">Политика приватности</string>
 	<string name="settingsButtonContentDescription">Настройки</string>
-	<string name="albumArtButtonContentDescription">Развернуть/свернуть обложку</string>
 	<string name="previousButtonContentDescription">Предыдущий</string>
 	<string name="playPauseButtonContentDescription">Воспроизведение/пауза</string>
 	<string name="nextButtonContentDescription">Следующий</string>

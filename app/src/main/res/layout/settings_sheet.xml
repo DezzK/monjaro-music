@@ -59,8 +59,9 @@
 
 				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
-					android:padding="@dimen/spacingExtraMedium"
+					android:layout_gravity="left"
 					android:contentDescription="@string/light"
+					android:padding="@dimen/spacingExtraMedium"
 					android:scaleType="fitCenter"
 					android:src="@drawable/ic_theme_light"
 					android:tint="@color/mainForeground"
@@ -69,8 +70,6 @@
 				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="-2dp"
-					android:layout_marginBottom="@dimen/spacingExtraMedium"
 					android:text="@string/light"
 					android:textColor="@color/mainForeground"
 					android:textSize="@dimen/textLarge"
@@ -101,8 +100,9 @@
 
 				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
-					android:padding="@dimen/spacingExtraMedium"
+					android:layout_gravity="left"
 					android:contentDescription="@string/system"
+					android:padding="@dimen/spacingExtraMedium"
 					android:scaleType="fitCenter"
 					android:src="@drawable/ic_theme_system"
 					android:tint="@color/mainForeground"
@@ -111,8 +111,6 @@
 				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="-2dp"
-					android:layout_marginBottom="@dimen/spacingExtraMedium"
 					android:text="@string/system"
 					android:textColor="@color/mainForeground"
 					android:textSize="@dimen/textLarge"
@@ -143,8 +141,9 @@
 
 				<com.github.dezzk.monjaro_music.core.ExtendedImageView
 					style="@style/floatingButtonOmniStyle2"
-					android:padding="@dimen/spacingExtraMedium"
+					android:layout_gravity="left"
 					android:contentDescription="@string/dark"
+					android:padding="@dimen/spacingExtraMedium"
 					android:src="@drawable/ic_theme_dark"
 					android:tint="@color/mainForeground"
 					/>
@@ -152,8 +151,6 @@
 				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="-2dp"
-					android:layout_marginBottom="@dimen/spacingExtraMedium"
 					android:text="@string/dark"
 					android:textColor="@color/mainForeground"
 					android:textSize="@dimen/textLarge"
@@ -167,12 +164,12 @@
 		<com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout
 			android:id="@+id/sleepTimerBar"
 			android:layout_width="match_parent"
-			android:layout_height="128dp"
+			android:layout_height="100dp"
 			android:animateLayoutChanges="true"
 			android:clickable="false"
 			android:elevation="@dimen/elevationMedium"
+			android:visibility="gone"
 			app:cornerRadius="@dimen/cornerRadiusLarge"
-			app:fillColor="@color/alwaysBlack"
 			app:layout_constraintTop_toBottomOf="@id/themeBar"
 			app:strokeColor="@color/mainSettingsBorder"
 			app:strokeWidth="1dp"
@@ -212,9 +209,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="@dimen/spacingLarge"
-				android:layout_marginTop="@dimen/spacingMediumLarge"
+				android:layout_marginTop="@dimen/spacingSmall"
 				android:text="@string/sleepTimer"
-				android:textColor="@color/alwaysWhite"
+				android:textColor="@color/seekPrimary"
 				android:textSize="@dimen/textLarge"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
@@ -225,7 +222,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:paddingEnd="@dimen/spacingSmallMedium"
-				android:textColor="@color/alwaysWhite"
+				android:textColor="@color/seekPrimary"
 				android:textSize="@dimen/textMedium"
 				android:textStyle="bold"
 				android:visibility="gone"
@@ -239,7 +236,7 @@
 				android:id="@+id/sleepTimerTextDuration"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textColor="@color/alwaysOffWhite"
+				android:textColor="@color/seekSecondary"
 				android:textSize="@dimen/textMedium"
 				app:layout_constraintStart_toEndOf="@id/sleepTimerTextProgress"
 				app:layout_constraintTop_toBottomOf="@id/sleepTimerLabel"
@@ -259,19 +256,18 @@
 				android:id="@+id/sleepTimerToggle"
 				android:layout_width="@dimen/imageButtonContainerSize"
 				android:layout_height="match_parent"
-				android:layout_marginTop="1dp"
 				android:layout_marginEnd="1dp"
-				android:layout_marginBottom="1dp"
 				android:contentDescription="@string/sleepTimerToggle"
 				android:padding="@dimen/spacingExtraMediumLarge"
 				android:src="@drawable/anim_stopwatch"
-				android:tint="@color/alwaysWhite"
+				android:tint="@color/seekPrimary"
 				app:cornerRadiusBottomLeft="0dp"
 				app:cornerRadiusBottomRight="@dimen/cornerRadiusLarge"
 				app:cornerRadiusTopLeft="0dp"
 				app:cornerRadiusTopRight="@dimen/cornerRadiusLarge"
-				app:fillColor="@color/alwaysBlack"
+				app:fillColor="@color/seekBackground"
 				app:layout_constraintEnd_toEndOf="parent"
+				tools:layout_editor_absoluteY="2dp"
 				/>
 
 		</com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout>
@@ -280,13 +276,12 @@
 		<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 			android:id="@+id/seekJumpBar"
 			android:layout_width="match_parent"
-			android:layout_height="128dp"
+			android:layout_height="100dp"
 			android:layout_marginTop="@dimen/spacingLarge"
 			android:animateLayoutChanges="true"
 			android:clickable="false"
 			android:elevation="@dimen/elevationMedium"
 			app:cornerRadius="@dimen/cornerRadiusLarge"
-			app:fillColor="@color/alwaysBlack"
 			app:layout_constraintTop_toBottomOf="@id/sleepTimerBar"
 			tools:layout_editor_absoluteX="32dp"
 			>
@@ -315,7 +310,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/playbackSpeed"
-					android:textColor="@color/alwaysWhite"
+					android:textColor="@color/seekPrimary"
 					android:textSize="@dimen/textLarge"
 					/>
 
@@ -323,7 +318,7 @@
 					android:id="@+id/playbackSpeedText"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textColor="@color/alwaysOffWhite"
+					android:textColor="@color/seekSecondary"
 					android:textSize="@dimen/textMedium"
 					tools:text="1x"
 					/>
@@ -337,7 +332,7 @@
 				android:contentDescription="@string/playbackSpeed"
 				android:padding="@dimen/spacingExtraMedium"
 				android:src="@drawable/ic_playback_speed"
-				android:tint="@color/alwaysWhite"
+				android:tint="@color/seekPrimary"
 				/>
 
 		</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
@@ -346,13 +341,12 @@
 		<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 			android:id="@+id/playbackSpeedBar"
 			android:layout_width="match_parent"
-			android:layout_height="128dp"
+			android:layout_height="100dp"
 			android:layout_marginTop="@dimen/spacingLarge"
 			android:animateLayoutChanges="true"
 			android:clickable="false"
 			android:elevation="@dimen/elevationMedium"
 			app:cornerRadius="@dimen/cornerRadiusLarge"
-			app:fillColor="@color/alwaysBlack"
 			app:layout_constraintTop_toBottomOf="@id/seekJumpBar"
 			tools:layout_editor_absoluteX="32dp"
 			>
@@ -381,7 +375,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/seekJump"
-					android:textColor="@color/alwaysWhite"
+					android:textColor="@color/seekPrimary"
 					android:textSize="@dimen/textLarge"
 					/>
 
@@ -403,7 +397,7 @@
 				android:contentDescription="@string/dark"
 				android:padding="@dimen/spacingMediumLarge"
 				android:src="@drawable/ic_seek_jump"
-				android:tint="@color/alwaysWhite"
+				android:tint="@color/seekPrimary"
 				/>
 
 		</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
@@ -445,8 +439,6 @@
 				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="-4dp"
-					android:layout_marginBottom="@dimen/spacingMediumLarge"
 					android:text="@string/shuffle"
 					android:textColor="@color/alwaysWhite"
 					android:textSize="@dimen/textLarge"
@@ -481,8 +473,6 @@
 				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="-4dp"
-					android:layout_marginBottom="@dimen/spacingMediumLarge"
 					android:text="@string/repeat"
 					android:textColor="@color/alwaysWhite"
 					android:textSize="@dimen/textLarge"
@@ -497,6 +487,7 @@
 				android:layout_marginVertical="0dp"
 				android:layout_marginStart="@dimen/spacingMedium"
 				android:elevation="@dimen/elevationMedium"
+				android:visibility="gone"
 				app:cornerRadius="@dimen/cornerRadiusLarge"
 				app:fillColor="@color/alwaysBlack"
 				app:strokeColor="@color/mainSettingsBorder"
@@ -515,8 +506,6 @@
 				<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="-4dp"
-					android:layout_marginBottom="@dimen/spacingMediumLarge"
 					android:text="@string/equalizer"
 					android:textColor="@color/alwaysWhite"
 					android:textSize="@dimen/textLarge"
@@ -527,19 +516,6 @@
 		</androidx.appcompat.widget.LinearLayoutCompat>
 
 		<!-- Privacy Policy -->
-		<com.github.dezzk.monjaro_music.core.ExtendedButton
-			android:id="@+id/buttonPrivacyPolicy"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:padding="@dimen/spacingMedium"
-			android:text="@string/privacyPolicy"
-			android:textColor="@color/explorerForegroundLight"
-			android:textSize="@dimen/textMedium"
-			app:cornerRadius="@dimen/cornerRadiusLarge"
-			app:layout_constraintEnd_toEndOf="@id/shuffleRepeatBar"
-			app:layout_constraintStart_toStartOf="@id/shuffleRepeatBar"
-			app:layout_constraintTop_toBottomOf="@id/shuffleRepeatBar"
-			/>
 
 	</com.github.dezzk.monjaro_music.core.ExtendedConstraintLayout>
 

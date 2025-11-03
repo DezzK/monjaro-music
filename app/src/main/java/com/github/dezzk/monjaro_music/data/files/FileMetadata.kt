@@ -31,9 +31,6 @@ class FileMetadata(private val file: File) {
 	private val chapterCount: Int
 		get() = retriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_CHAPTER_COUNT)?.toInt() ?: 0
 
-	val albumArt: ByteArray?
-		get() = retriever.embeddedPicture
-
 	val chapters: ArrayList<Chapter>
 		get() = ArrayList((0 until chapterCount).map {
 			Chapter(it, getChapterStartTime(it))

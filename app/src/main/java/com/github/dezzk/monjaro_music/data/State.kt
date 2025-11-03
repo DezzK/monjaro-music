@@ -48,8 +48,9 @@ object State {
 		}
 		set(value) = sharedPreferences.put(Key.DIRECTORY, value.absolutePath)
 
-	val isPlaying: Boolean
-		get() = PlaybackManager.isPlaying
+	var isPlaying: Boolean
+		get() = sharedPreferences.getBoolean(Key.IS_PLAYING, false)
+		set(value) = sharedPreferences.put(Key.IS_PLAYING, value)
 
 	var seekJump: Int
 		get() = sharedPreferences.getInt(Key.SEEK_JUMP, 60) // 1 minute default
@@ -98,11 +99,10 @@ object State {
 			get() = sharedPreferences.getString(Key.PATH, String.EMPTY) ?: String.EMPTY
 			set(value) = sharedPreferences.put(Key.PATH, value)
 
-		var title= String.EMPTY
+		var title = String.EMPTY
 		var album = String.EMPTY
 		var artist = String.EMPTY
 		var duration = 0L
-		var albumArt: ByteArray? = null
 
 		var chapters: ArrayList<Chapter> = ArrayList()
 		val hasChapters: Boolean
@@ -124,8 +124,8 @@ object State {
 			val f = File(path)
 			if (!ExplorerFile.isTrack(f)) return
 
-			// Play Store keeps saying that the ffmpeg.setDataSource throws an illegalArgumentException...to me the above check should fix that, but it didn't
-			// so I just try/catch the fucker
+			// Play Store keeps saying that the ffmpeg.setDataSource throws an illegalArgumentException...
+			// to me the above check should fix that, but it didn't so I just try/catch the fucker
 			try {
 				val metadata = FileMetadata(f)
 				title = metadata.title
@@ -133,7 +133,6 @@ object State {
 				artist = metadata.artist
 				duration = metadata.duration
 				chapters = metadata.chapters
-				albumArt = metadata.albumArt
 
 			} catch (ex: Exception) { Log.e("State", "State.Track.update", ex) }
 		}
@@ -146,6 +145,7 @@ object State {
 		const val DIRECTORY = "CurrentDirectory"
 		const val PLAYLIST = "Playlist"
 		const val PATH = "CurrentTrack"
+		const val IS_PLAYING = "IsPlaying"
 		const val SEEK = "Seek"
 		const val SEEK_JUMP = "SeekJump"
 		const val PLAYBACK_SPEED = "PlaybackSpeed"

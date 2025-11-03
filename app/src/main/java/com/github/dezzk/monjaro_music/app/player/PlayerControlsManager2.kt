@@ -41,8 +41,8 @@ class PlayerControlsManager2(mainBinding: MainFragmentBinding) : EventBus.Subscr
 		})
 
 		binding.buttonOmni.setOnClickListener {
-			togglePlayPauseButton(!State.isPlaying) // UI
-			EventBus.send(SystemEvent(EventSource.CONTROLS, if (!State.isPlaying) EventType.PLAY else EventType.PAUSE)) // Event
+			togglePlayPauseButton(!PlaybackManager.isPlaying) // UI
+			EventBus.send(SystemEvent(EventSource.CONTROLS, if (!PlaybackManager.isPlaying) EventType.PLAY else EventType.PAUSE)) // Event
 		}
 		binding.buttonNext.setOnClickListener {
 			togglePlayPauseButton(true)
@@ -68,19 +68,6 @@ class PlayerControlsManager2(mainBinding: MainFragmentBinding) : EventBus.Subscr
 			State.isSearchModeActive = true
 			EventBus.send(SystemEvent(EventSource.CONTROLS, EventType.SEARCH_MODE))
 		}
-		binding.buttonAlbumArt.setOnClickListener {
-			binding.buttonAlbumArt.let {
-				val animId = if (it.tag == R.drawable.anim_collapse_expand) R.drawable.anim_expand_collapse else R.drawable.anim_collapse_expand
-
-				val art = (binding.imageViewAlbumArt.drawable as BitmapDrawable).bitmap
-				val height = if (it.tag == R.drawable.anim_collapse_expand) it.resources.getDimension(R.dimen.albumArtCollapsedHeight)
-				else art.height * (binding.imageViewAlbumArt.width) / art.width
-
-				it.tag = animId
-				it.animateDrawable(animId)
-				binding.mainPanel.animateHeight(height.toInt(), 500)
-			}
-		}
 	}
 
 	private fun updateMetadata() {
@@ -96,18 +83,6 @@ class PlayerControlsManager2(mainBinding: MainFragmentBinding) : EventBus.Subscr
 		binding.seekBar.max = State.Track.duration.toInt()
 		binding.seekBar.progress = State.Track.seek
 		binding.textViewSeek.text = State.Track.readableSeek
-
-		binding.buttonAlbumArt.visibility = if (State.Track.albumArt != null) View.VISIBLE else View.GONE
-		binding.imageViewAlbumArt.setEncodedBitmapAsync(State.Track.albumArt) // album art
-
-		// collapse the album art panel if the new file doesn't have any
-		if (State.Track.albumArt == null && binding.buttonAlbumArt.tag == R.drawable.anim_collapse_expand) {
-			binding.buttonAlbumArt.let {
-				it.tag = R.drawable.anim_expand_collapse
-				it.animateDrawable(R.drawable.anim_expand_collapse)
-				binding.mainPanel.animateHeight(it.resources.getDimension(R.dimen.albumArtCollapsedHeight).toInt(), ALBUM_ART_ANIM_DURATION)
-			}
-		}
 
 		// thanks https://stackoverflow.com/questions/3591784/views-getwidth-and-getheight-returns-0
 		// updateChapters uses the container's (frameLayoutChapters) width to determine the margins. On app startup, when this is called,
@@ -149,7 +124,7 @@ class PlayerControlsManager2(mainBinding: MainFragmentBinding) : EventBus.Subscr
 				EventType.METADATA_UPDATE -> updateMetadata()
 				EventType.SEEK_UPDATE -> updateSeek()
 				EventType.SLEEP_TIMER_FINISH -> {
-					if (State.isPlaying) binding.buttonOmni.performClick() // pause if playing
+					if (PlaybackManager.isPlaying) binding.buttonOmni.performClick() // pause if playing
 				}
 			}
 		}

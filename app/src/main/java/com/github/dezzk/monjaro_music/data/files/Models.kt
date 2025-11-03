@@ -14,6 +14,7 @@ import com.github.dezzk.monjaro_music.data.State
 import java.io.File
 import java.io.FileFilter
 import java.util.Arrays
+import java.util.Optional
 
 
 /**
@@ -24,13 +25,20 @@ import java.util.Arrays
  * not really useful as a model class anymore, honestly...at the start of development, I used to display the track count for folders and the album/artist for tracks
  * now, only the statics are useful
  */
-class ExplorerFile(pathname: String, var album: String = String.EMPTY, var artist: String = String.EMPTY, var duration: String = String.EMPTY, var trackCount: Int = 0)
+class ExplorerFile(
+	pathname: String,
+	var index: Optional<Int> = Optional.empty<Int>(),
+	var album: String = String.EMPTY,
+	var artist: String = String.EMPTY,
+	var duration: String = String.EMPTY,
+	var trackCount: Int = 0
+)
 	: File(pathname) {
 
-	// FileFilter implementation that accepts directory/media files.
+	// FileFilter implementation that accepts only visible directory/media files.
 	private class ExplorerFileFilter : FileFilter {
 		override fun accept(file: File): Boolean {
-			return file.isDirectory || MEDIA_EXTENSIONS.contains(file.extension)
+			return !file.isHidden && (file.isDirectory || MEDIA_EXTENSIONS.contains(file.extension))
 		}
 	}
 
@@ -61,10 +69,14 @@ class ExplorerFile(pathname: String, var album: String = String.EMPTY, var artis
 			var files = File(path).listFiles(filter)
 
 			// just to make sure that we aren't trapped at the basement
-			if (path == EMULATED && files == null) files = arrayOf(File(EMULATED_ZERO))
+			if (path == EMULATED && files == null)
+				files = arrayOf(File(EMULATED_ZERO))
 			else if (path == ACTUAL_ROOT && files == null) {
-				files = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) listVolumes()
-				else arrayOf(File(EMULATED))
+				files =
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+						listVolumes()
+					else
+						arrayOf(File(EMULATED))
 			}
 
 			if (files == null) return ArrayList()
@@ -76,7 +88,16 @@ class ExplorerFile(pathname: String, var album: String = String.EMPTY, var artis
 				else o1.name.compareTo(o2.name, true) // if both are tracks, compare their names
 			}
 
-			for (f in files) fileModels.add(ExplorerFile(f.absolutePath))
+			var index = 1
+			for (f in files) {
+				var optIndex = Optional.empty<Int>()
+				if (!f.isDirectory) {
+					optIndex = Optional.of<Int>(index)
+					index++
+				}
+
+				fileModels.add(ExplorerFile(f.absolutePath, optIndex))
+			}
 			return fileModels
 		}
 

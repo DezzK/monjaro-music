@@ -58,7 +58,6 @@ class MediaNotificationManager(private val context: Context, sessionToken: Media
 			setContentTitle(State.Track.title)
 			setContentText(State.Track.album)
 			setSmallIcon(R.drawable.ic_notification)
-			setLargeIcon(State.Track.albumArt)
 			setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 			priority = NotificationCompat.PRIORITY_HIGH // for versions prior to Oreo
 
@@ -88,7 +87,7 @@ class MediaNotificationManager(private val context: Context, sessionToken: Media
 
 	// gets the correct play/pause icon based on current state
 	private fun getPlayPauseIcon(): Int {
-		return if (State.isPlaying) R.drawable.ic_notification_pause else R.drawable.ic_notification_play
+		return if (PlaybackManager.isPlaying) R.drawable.ic_notification_pause else R.drawable.ic_notification_play
 	}
 
 	// creates a notification channel to play nice with Oreo and above
@@ -125,7 +124,7 @@ class MediaNotificationManager(private val context: Context, sessionToken: Media
 
 			val event = when (intent?.getIntExtra(EXTRA, Action.PLAY_PAUSE) ?: Action.PLAY_PAUSE) {
 				Action.NEXT -> EventType.PLAY_NEXT
-				Action.PLAY_PAUSE -> if (State.isPlaying) EventType.PAUSE else EventType.PLAY
+				Action.PLAY_PAUSE -> if (PlaybackManager.isPlaying) EventType.PAUSE else EventType.PLAY
 				else -> EventType.PLAY_PREVIOUS
 			}
 

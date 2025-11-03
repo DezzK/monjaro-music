@@ -131,7 +131,20 @@ class PlaybackManager :
 
 		setTrack(State.Track.path, false)
 		updateSeek(State.Track.seek)
-		if (isBootstrapping) EventBus.send(SystemEvent(EventSource.SERVICE, EventType.SEEK_UPDATE_USER)) // notify the session
+		if (isBootstrapping) {
+			EventBus.send(
+				SystemEvent(
+					EventSource.SERVICE,
+					EventType.SEEK_UPDATE_USER
+				)
+			) // notify the session
+		}
+		if (State.isPlaying) {
+			playPause(State.isPlaying)
+			EventBus.send(
+				SystemEvent(EventSource.SERVICE, EventType.PLAY)
+			)
+		}
 	}
 
 	// playback
@@ -152,12 +165,15 @@ class PlaybackManager :
 
 		registerReceiver(noisyReceiver, noisyIntentFilter) // headphone removal
 
+		State.isPlaying = true
 		player.playPause(true)
 		sendAudioEffectControl(true)
 		sendMetadataUpdate(path)
 		sendSeekUpdates()
 	}
 	private fun playPause(play: Boolean) {
+		State.isPlaying = play
+
 		if (play) {
 			val focusResult = audioFocusHandler.request()
 			if (focusResult != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) return

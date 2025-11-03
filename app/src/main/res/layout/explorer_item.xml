@@ -9,11 +9,20 @@
 	>
 
 	<!--Selection-->
+	<View
+		android:id="@+id/divider"
+		android:layout_width="match_parent"
+		android:layout_height="4dp"
+		android:background="?android:attr/listDivider"
+		android:fadingEdge="horizontal"
+		/>
+
 	<com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
 		android:id="@+id/frameLayoutCurrent"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_margin="@dimen/spacingSmallMedium"
+		android:layout_marginHorizontal="@dimen/spacingMedium"
+		android:layout_marginVertical="@dimen/spacingSmall"
 		android:alpha="@dimen/transparent"
 		app:cornerRadius="@dimen/cornerRadiusLarge"
 		app:fillColor="@color/explorerSelection"
@@ -24,9 +33,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:paddingVertical="@dimen/spacingSmall"
-		android:paddingHorizontal="@dimen/spacingMedium"
 		android:orientation="horizontal"
+		android:paddingHorizontal="@dimen/spacingMedium"
 		>
 
 		<!-- icon -->
@@ -45,24 +53,37 @@
 		<LinearLayout
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
 			android:layout_marginEnd="@dimen/spacingLarge"
-			android:orientation="vertical"
+			android:layout_weight="1"
+			android:orientation="horizontal"
 			>
 
 			<!-- title -->
 			<TextView
+				android:id="@+id/textViewIndex"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:gravity="right|center_vertical"
+				android:minWidth="45dp"
+				android:paddingHorizontal="@dimen/spacingSmallMedium"
+				android:paddingVertical="@dimen/spacingMedium"
+				android:textColor="@color/explorerForegroundLight"
+				android:textSize="@dimen/textMedium"
+				tools:text="00."
+				/>
+
+			<TextView
 				android:id="@+id/textViewTitle"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/spacingMedium"
-				android:layout_marginBottom="@dimen/spacingMedium"
-				android:textSize="@dimen/textLarge"
+				android:paddingVertical="@dimen/spacingSmallMedium"
 				android:textColor="@color/explorerForegroundLight"
+				android:textSize="@dimen/textHuge"
 				tools:text="Track Title"
 				/>
 
 			<!-- subtitle/duration - hidden-->
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -73,12 +94,12 @@
 				<TextView
 					android:id="@+id/textViewSubtitle"
 					android:layout_width="0dp"
-					android:layout_weight="1"
 					android:layout_height="wrap_content"
-					android:maxLines="1"
+					android:layout_weight="1"
 					android:ellipsize="end"
-					android:textSize="@dimen/textSmall"
+					android:maxLines="1"
 					android:textColor="@color/explorerForegroundLight"
+					android:textSize="@dimen/textSmall"
 					tools:text="Artist"
 					/>
 
@@ -88,8 +109,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="20dp"
-					android:textSize="@dimen/textSmall"
 					android:textColor="@color/explorerForegroundLight"
+					android:textSize="@dimen/textSmall"
 					tools:text="00:00"
 					/>
 
@@ -107,7 +128,9 @@
 			app:cornerRadius="15dp"
 			app:fillColor="@color/mainForeground"
 			tools:alpha="@dimen/opaque"
-			/>
+			>
+
+		</com.github.dezzk.monjaro_music.core.ExtendedFrameLayout>
 
 	</LinearLayout>
 

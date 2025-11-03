@@ -150,11 +150,6 @@ class SettingsManager(mainBinding: MainFragmentBinding) : EventBus.Subscriber {
 			EventBus.send(SystemEvent(EventSource.CONTROLS, EventType.EQ))
 		}
 
-		binding.buttonPrivacyPolicy.setOnClickListener {
-			val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Const.PRIVACY_POLICY_URL))
-			startActivity(binding.context, browserIntent, null)
-		}
-
 		updateMetadata()
 	}
 

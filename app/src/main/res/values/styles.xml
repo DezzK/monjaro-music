@@ -66,6 +66,13 @@
 		<item name="android:scaleType">fitCenter</item>
 	</style>
 
+	<style name="floatingButtonOmniStyle3">
+		<item name="android:layout_width">@dimen/imageButtonContainerSize3</item>
+		<item name="android:layout_height">@dimen/imageButtonContainerSize3</item>
+		<item name="android:padding">@dimen/spacingMedium</item>
+		<item name="android:scaleType">fitCenter</item>
+	</style>
+
 	<style name="settingsSheetButton">
 		<item name="android:layout_width">0dp</item>
 		<item name="android:layout_height">wrap_content</item>
@@ -73,7 +80,7 @@
 		<item name="android:layout_marginVertical">@dimen/spacingLarge</item>
 		<item name="android:elevation">@dimen/elevationMedium</item>
 		<item name="android:gravity">center</item>
-		<item name="android:orientation">vertical</item>
+		<item name="android:orientation">horizontal</item>
 	</style>
 
 </resources>
