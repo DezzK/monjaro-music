@@ -28,17 +28,13 @@ import java.util.Optional
 class ExplorerFile(
 	pathname: String,
 	var index: Optional<Int> = Optional.empty<Int>(),
-	var album: String = String.EMPTY,
-	var artist: String = String.EMPTY,
-	var duration: String = String.EMPTY,
-	var trackCount: Int = 0
 )
 	: File(pathname) {
 
 	// FileFilter implementation that accepts only visible directory/media files.
 	private class ExplorerFileFilter : FileFilter {
 		override fun accept(file: File): Boolean {
-			return !file.isHidden && (file.isDirectory || MEDIA_EXTENSIONS.contains(file.extension))
+			return !file.isHidden && (file.isDirectory || MEDIA_EXTENSIONS.contains(file.extension.lowercase()))
 		}
 	}
 
