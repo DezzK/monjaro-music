@@ -17,7 +17,6 @@ import com.github.dezzk.monjaro_music.R
 import com.github.dezzk.monjaro_music.app.main.MainActivity
 import com.github.dezzk.monjaro_music.core.Moirai
 import com.github.dezzk.monjaro_music.core.evt.EventBus
-import com.github.dezzk.monjaro_music.core.ext.setLargeIcon
 import com.github.dezzk.monjaro_music.data.EventSource
 import com.github.dezzk.monjaro_music.data.EventType
 import com.github.dezzk.monjaro_music.data.State
@@ -29,119 +28,141 @@ import com.github.dezzk.monjaro_music.data.SystemEvent
  * P.S. the "NotificationManager" name is already taken!
  */
 
-class MediaNotificationManager(private val context: Context, sessionToken: MediaSessionCompat.Token) : EventBus.Subscriber {
+class MediaNotificationManager(
+    private val context: Context,
+    sessionToken: MediaSessionCompat.Token
+) : EventBus.Subscriber {
 
-	// media notification style
-	private val style: androidx.media.app.NotificationCompat.MediaStyle by lazy {
-		androidx.media.app.NotificationCompat.MediaStyle()
-			.setShowCancelButton(false)
-			.setShowActionsInCompactView(Action.PREV, Action.PLAY_PAUSE, Action.NEXT)
-			.setMediaSession(sessionToken)
-	}
+    // media notification style
+    private val style: androidx.media.app.NotificationCompat.MediaStyle by lazy {
+        androidx.media.app.NotificationCompat.MediaStyle()
+            .setShowCancelButton(false)
+            .setShowActionsInCompactView(Action.PREV, Action.PLAY_PAUSE, Action.NEXT)
+            .setMediaSession(sessionToken)
+    }
 
-	init {
-		EventBus.subscribe(this)
-		createChannel()
-	}
+    init {
+        EventBus.subscribe(this)
+        createChannel()
+    }
 
-	// creates the notification, and displays it
-	// the MissingPermission suppression is because this notification should be exempt from this requirement according to:
-	// https://developer.android.com/develop/ui/views/notifications/notification-permission#exemptions
-	@SuppressLint("MissingPermission", "NotificationPermission")
-	fun createNotification(): Notification {
+    // creates the notification, and displays it
+    // the MissingPermission suppression is because this notification should be exempt from this requirement according to:
+    // https://developer.android.com/develop/ui/views/notifications/notification-permission#exemptions
+    @SuppressLint("MissingPermission", "NotificationPermission")
+    fun createNotification(): Notification {
 
-		// click the notification, get the main activity!
-		val contentIntent = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), INTENT_FLAGS)
+        // click the notification, get the main activity!
+        val contentIntent = PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java),
+            INTENT_FLAGS
+        )
 
-		val notification = NotificationCompat.Builder(context, CHANNEL_ID).apply {
-			setContentIntent(contentIntent)
-			setContentTitle(State.Track.title)
-			setContentText(State.Track.album)
-			setSmallIcon(R.drawable.ic_notification)
-			setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-			priority = NotificationCompat.PRIORITY_HIGH // for versions prior to Oreo
 
-			setColorized(true)
-			color = ContextCompat.getColor(context, R.color.alwaysBlack)
-			setStyle(style)
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID).apply {
+            setContentIntent(contentIntent)
+            setContentTitle(State.Track.title)
+            setContentText(
+                if (State.Track.artist.isEmpty() || State.Track.album.isEmpty()) {
+                    State.Track.artist + State.Track.album
+                } else {
+                    State.Track.artist + " - " + State.Track.album
+                }
+            )
+            setSmallIcon(R.drawable.ic_notification)
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            priority = NotificationCompat.PRIORITY_HIGH // for versions prior to Oreo
 
-			addAction(createAction(R.drawable.ic_notification_prev, Action.PREV))
-			addAction(createAction(getPlayPauseIcon(), Action.PLAY_PAUSE))
-			addAction(createAction(R.drawable.ic_notification_next, Action.NEXT))
+            setColorized(true)
+            color = ContextCompat.getColor(context, R.color.alwaysBlack)
+            setStyle(style)
 
-		}.build()
+            addAction(createAction(R.drawable.ic_notification_prev, Action.PREV))
+            addAction(createAction(getPlayPauseIcon(), Action.PLAY_PAUSE))
+            addAction(createAction(R.drawable.ic_notification_next, Action.NEXT))
 
-		NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification) // display the notification
-		return notification
-	}
+        }.build()
 
-	// creates notification actions
-	private fun createAction(iconResId: Int, actionIndex: Int): NotificationCompat.Action {
-		val intent = Intent(context, NotificationActionHandler::class.java)
-		intent.putExtra(EXTRA, actionIndex)
+        NotificationManagerCompat.from(context)
+            .notify(NOTIFICATION_ID, notification) // display the notification
+        return notification
+    }
 
-		val pendingIntent = PendingIntent.getBroadcast(context, actionIndex, intent, INTENT_FLAGS)
+    // creates notification actions
+    private fun createAction(iconResId: Int, actionIndex: Int): NotificationCompat.Action {
+        val intent = Intent(context, NotificationActionHandler::class.java)
+        intent.putExtra(EXTRA, actionIndex)
 
-		return NotificationCompat.Action(iconResId, actionIndex.toString(), pendingIntent)
-	}
+        val pendingIntent = PendingIntent.getBroadcast(context, actionIndex, intent, INTENT_FLAGS)
 
-	// gets the correct play/pause icon based on current state
-	private fun getPlayPauseIcon(): Int {
-		return if (PlaybackManager.isPlaying) R.drawable.ic_notification_pause else R.drawable.ic_notification_play
-	}
+        return NotificationCompat.Action(iconResId, actionIndex.toString(), pendingIntent)
+    }
 
-	// creates a notification channel to play nice with Oreo and above
-	private fun createChannel() {
-		val channel = NotificationChannel(CHANNEL_ID, context.getString(R.string.notificationChannelName), NotificationManager.IMPORTANCE_LOW)
-		channel.description = context.getString(R.string.notificationChannelDescription)
-		channel.setShowBadge(false)
+    // gets the correct play/pause icon based on current state
+    private fun getPlayPauseIcon(): Int {
+        return if (PlaybackManager.isPlaying) R.drawable.ic_notification_pause else R.drawable.ic_notification_play
+    }
 
-		val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-		notificationManager.createNotificationChannel(channel)
-	}
+    // creates a notification channel to play nice with Oreo and above
+    private fun createChannel() {
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            context.getString(R.string.notificationChannelName),
+            NotificationManager.IMPORTANCE_LOW
+        )
+        channel.description = context.getString(R.string.notificationChannelDescription)
+        channel.setShowBadge(false)
 
-	override fun receive(data: EventBus.EventData) {
-		if (data !is SystemEvent) return
-		Moirai.MAIN.post { // post-ing here just to delay the notification creation long enough for the playback state to settle (without it, State.isPlaying reported the previous state!)
-			when (data.type) {
-				EventType.PLAY,
-				EventType.PAUSE,
-				EventType.PLAY_ITEM,
-				EventType.PLAY_NEXT,
-				EventType.PLAY_PREVIOUS,
-				EventType.METADATA_UPDATE -> {
-					Moirai.BG.post {
-						createNotification() // simply recreating the notification updates it
-					}
-				}
-			}
-		}
-	}
+        val notificationManager =
+            context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
 
-	// basically the notification action click handler (registered statically in the manifest)
-	class NotificationActionHandler : BroadcastReceiver() {
-		override fun onReceive(context: Context?, intent: Intent?) {
+    override fun receive(data: EventBus.EventData) {
+        if (data !is SystemEvent) return
+        Moirai.MAIN.post { // post-ing here just to delay the notification creation long enough for the playback state to settle (without it, State.isPlaying reported the previous state!)
+            when (data.type) {
+                EventType.PLAY,
+                EventType.PAUSE,
+                EventType.PLAY_ITEM,
+                EventType.PLAY_NEXT,
+                EventType.PLAY_PREVIOUS,
+                EventType.METADATA_UPDATE -> {
+                    Moirai.BG.post {
+                        createNotification() // simply recreating the notification updates it
+                    }
+                }
+            }
+        }
+    }
 
-			val event = when (intent?.getIntExtra(EXTRA, Action.PLAY_PAUSE) ?: Action.PLAY_PAUSE) {
-				Action.NEXT -> EventType.PLAY_NEXT
-				Action.PLAY_PAUSE -> if (PlaybackManager.isPlaying) EventType.PAUSE else EventType.PLAY
-				else -> EventType.PLAY_PREVIOUS
-			}
+    // basically the notification action click handler (registered statically in the manifest)
+    class NotificationActionHandler : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
 
-			EventBus.send(SystemEvent(EventSource.NOTIFICATION, event))
-		}
-	}
+            val event = when (intent?.getIntExtra(EXTRA, Action.PLAY_PAUSE) ?: Action.PLAY_PAUSE) {
+                Action.NEXT -> EventType.PLAY_NEXT
+                Action.PLAY_PAUSE -> if (PlaybackManager.isPlaying) EventType.PAUSE else EventType.PLAY
+                else -> EventType.PLAY_PREVIOUS
+            }
 
-	companion object {
-		private const val CHANNEL_ID = "PLAYBACK_NOTIFICATION" // Android Oreo notification channel name
-		const val NOTIFICATION_ID = 124816
-		const val EXTRA = "Action"
-		const val INTENT_FLAGS = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
+            EventBus.send(SystemEvent(EventSource.NOTIFICATION, event))
+        }
+    }
 
-		object Action {
-			const val PREV = 0
-			const val PLAY_PAUSE = 1
-			const val NEXT = 2
-		}
-	}
+    companion object {
+        private const val CHANNEL_ID =
+            "PLAYBACK_NOTIFICATION" // Android Oreo notification channel name
+        const val NOTIFICATION_ID = 124816
+        const val EXTRA = "Action"
+        const val INTENT_FLAGS = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
+
+        object Action {
+            const val PREV = 0
+            const val PLAY_PAUSE = 1
+            const val NEXT = 2
+        }
+    }
 }

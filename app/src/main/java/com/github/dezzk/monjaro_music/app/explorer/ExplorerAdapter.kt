@@ -12,6 +12,7 @@ import com.github.dezzk.monjaro_music.core.OnListItemInteractionListener
 import com.github.dezzk.monjaro_music.data.ItemType
 import com.github.dezzk.monjaro_music.data.State
 import com.github.dezzk.monjaro_music.data.files.ExplorerFile
+import com.github.dezzk.monjaro_music.data.files.FileMetadata
 import com.github.dezzk.monjaro_music.databinding.ExplorerItemBinding
 import java.io.File
 
@@ -48,7 +49,15 @@ class ExplorerAdapter(
 			icon.setColorFilter(R.color.mainBackground)
 			icon.setImageResource(if (file.isDirectory) R.mipmap.ic_directory else R.mipmap.ic_track)
 			icon.visibility = if (file.isDirectory) View.VISIBLE else View.GONE
-			title.text = if (file.isDirectory) file.name else file.name.replace("\\.[^.]+$".toRegex(), "")
+			title.text = if (file.isDirectory)
+				file.name
+			else {
+				val metadata = FileMetadata(file)
+				val title = metadata.title.trim()
+				val artist = metadata.artist.trim()
+
+				title.ifEmpty { file.nameWithoutExtension } + if (artist.isEmpty()) "" else " ($artist)"
+			}
 			if (file.index.isPresent) {
 				index.text = "${file.index.get()}."
 				index.visibility = View.VISIBLE

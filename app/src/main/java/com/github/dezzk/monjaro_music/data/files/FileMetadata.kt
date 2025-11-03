@@ -17,14 +17,15 @@ class FileMetadata(private val file: File) {
 	}
 
 	val title: String
-		get() = file.nameWithoutExtension
+		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)?.trim()
+			?: file.nameWithoutExtension
 
 	val artist: String
-		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
+		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)?.trim()
 			?: String.EMPTY
 
 	val album: String
-		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
+		get() = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)?.trim()
 			?: file.parentFile?.name ?: String.EMPTY
 
 	val duration: Long
