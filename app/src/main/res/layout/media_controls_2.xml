@@ -43,7 +43,6 @@
 		android:layout_marginBottom="@dimen/spacingSmall"
 		android:animateLayoutChanges="false"
 		android:clickable="false"
-		android:elevation="@dimen/elevationSmall"
 		android:visibility="visible"
 		app:cornerRadius="@dimen/cornerRadiusLarge"
 		app:layout_constraintBottom_toBottomOf="parent"
@@ -58,9 +57,9 @@
 			android:max="100"
 			android:maxHeight="900dp"
 			android:padding="0dp"
-			android:progress="25"
 			android:progressDrawable="@drawable/style_seek_bar_progress_2"
 			android:thumb="@null"
+			tools:progress="25"
 			/>
 
 		<!-- Chapters -->
