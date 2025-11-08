@@ -36,6 +36,7 @@
 	<dimen name="cornerRadiusSmall">6dp</dimen>
 	<dimen name="cornerRadiusMedium">12dp</dimen>
 	<dimen name="cornerRadiusLarge">18dp</dimen>
+	<dimen name="cornerRadiusXLarge">24dp</dimen>
 
 	<dimen name="elevationZero">0dp</dimen>
 	<dimen name="elevationSmall">4dp</dimen>

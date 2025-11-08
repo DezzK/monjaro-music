@@ -1,9 +1,14 @@
 package com.github.dezzk.monjaro_music.app.main
 
+import abak.tr.com.boxedverticalseekbar.VolumeControl
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,9 +36,15 @@ class MainFragment : Fragment() {
 
 	private lateinit var binding: MainFragmentBinding
 	private lateinit var permissionRequest: ActivityResultLauncher<String>
+	private val VOLUME_STREAM = AudioManager.STREAM_MUSIC
+	private lateinit var audioManager: AudioManager
+	private lateinit var volumeCheckRunnable: Runnable
+	private val mainHandler = Handler(Looper.getMainLooper())
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		audioManager = requireActivity().getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
 		// storage permission...must be in onCreate
 		permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -81,6 +92,29 @@ class MainFragment : Fragment() {
 				// explorer
 				val explorerManager = ExplorerManager(binding.recyclerViewExplorer)
 				explorerManager.initialize()
+
+				// volume control
+				binding.volumeControl.min = audioManager.getStreamMinVolume(VOLUME_STREAM)
+				binding.volumeControl.max = audioManager.getStreamMaxVolume(VOLUME_STREAM)
+				binding.volumeControl.value = audioManager.getStreamVolume(VOLUME_STREAM)
+				binding.volumeControl.setOnBoxedPointsChangeListener(object : VolumeControl.OnValuesChangeListener {
+					override fun onPointsChanged(volumeControl: VolumeControl?, points: Int) {
+						audioManager.setStreamVolume(VOLUME_STREAM, points, 0)
+//						volumeControl?.value = audioManager.getStreamVolume(VOLUME_STREAM)
+					}
+
+					override fun onStartTrackingTouch(boxedPoints: VolumeControl?) {}
+
+					override fun onStopTrackingTouch(boxedPoints: VolumeControl?) {}
+				})
+
+				volumeCheckRunnable = object : Runnable {
+					override fun run() {
+						binding.volumeControl.value = audioManager.getStreamVolume(VOLUME_STREAM)
+						mainHandler.postDelayed(this, 500)
+					}
+				}
+				mainHandler.postDelayed(volumeCheckRunnable , 500)
 
 				// controls
 				val playerControlsManager = PlayerControlsManager2(binding)

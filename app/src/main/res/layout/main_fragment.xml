@@ -22,6 +22,50 @@
 		tools:listitem="@layout/explorer_item"
 		/>
 
+	<!-- Volume control -->
+	<com.github.dezzk.monjaro_music.core.ExtendedLinearLayout
+		android:id="@+id/breadcrumbBarContainer"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginBottom="140dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginRight="@dimen/spacingLarge"
+        android:alpha="0.6"
+		android:elevation="@dimen/elevationMedium"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		app:cornerRadius="@dimen/cornerRadiusLarge"
+		app:fillColor="@color/breadcrumbBackground"
+		app:strokeColor="@color/breadcrumbBorder"
+		app:strokeWidth="1dp"
+        >
+
+        <abak.tr.com.boxedverticalseekbar.VolumeControl
+            android:id="@+id/volumeControl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+			android:layout_margin="1dp"
+            app:backgroundColor="@color/mainBackground"
+            app:progressColor="@color/mainForeground"
+            app:textColor="@color/color_text"
+			app:libCornerRadius="25"
+            app:imageEnabled="true"
+            app:defaultImage="@drawable/ic_volume_down_black_48dp"
+            app:maxImage="@drawable/ic_volume_up_black_48dp"
+            app:minImage="@drawable/ic_volume_off_black_48dp"
+            app:textEnabled="false"
+            app:max="100"
+            app:step="1"
+            app:textBottomPadding="20"
+            app:textSize="12sp"
+            app:touchDisabled="true"
+            />
+
+	</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
+
+
 	<!-- Breadcrumb bar -->
 	<include
 		android:id="@+id/layoutBreadcrumbs"
@@ -54,6 +98,7 @@
 		android:visibility="visible"
 		tools:visibility="gone"
 		/>
+
 
 	<!-- dynamic colors!!
 	<mohsen.muhammad.minimalist.core.ExtendedImageView
