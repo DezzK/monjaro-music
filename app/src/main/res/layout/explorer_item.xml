@@ -6,24 +6,25 @@
     android:layout_height="wrap_content"
     app:fillColor="@color/mainBackground">
 
-    <!--Selection-->
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="?android:attr/listDivider"
-        android:fadingEdge="horizontal" />
-
+    <!-- selection -->
     <com.github.dezzk.monjaro_music.core.ExtendedFrameLayout
         android:id="@+id/frameLayoutCurrent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/spacingMedium"
-        android:layout_marginVertical="@dimen/spacingSmall"
+        android:layout_marginTop="4dp"
         android:alpha="@dimen/transparent"
-        app:cornerRadius="@dimen/cornerRadiusLarge"
         app:fillColor="@color/explorerSelection"
         tools:alpha="@dimen/opaque" />
+
+    <!-- divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginVertical="0dp"
+        android:paddingVertical="0dp"
+        android:background="?android:attr/listDivider"
+        android:fadingEdge="horizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,6 +39,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/spacingLarge"
             android:layout_marginEnd="@dimen/spacingSmall"
             android:contentDescription="@string/descriptionRecyclerItemTypeTrack"
             android:src="@mipmap/ic_track"
@@ -45,21 +47,32 @@
 
         <!-- track name, album, artist -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacingLarge"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <!-- title -->
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/spacingSmallMedium"
+                android:layout_weight="1"
+                android:layout_marginVertical="@dimen/spacingMedium"
                 android:textColor="@color/explorerForegroundLight"
                 android:textSize="@dimen/textHuge"
                 tools:text="Track Title" />
+
+            <!--track duration-->
+            <TextView
+                android:id="@+id/textViewDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/explorerForegroundLight"
+                android:textSize="@dimen/textSmall"
+                android:layout_gravity="center_vertical"
+                tools:text="00:00" />
 
             <!-- subtitle/duration - hidden-->
 
@@ -79,16 +92,6 @@
                     android:textColor="@color/explorerForegroundLight"
                     android:textSize="@dimen/textSmall"
                     tools:text="Artist" />
-
-                <!--track duration-->
-                <TextView
-                    android:id="@+id/textViewDuration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:textColor="@color/explorerForegroundLight"
-                    android:textSize="@dimen/textSmall"
-                    tools:text="00:00" />
 
             </LinearLayout>
 

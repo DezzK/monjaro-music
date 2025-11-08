@@ -1,10 +1,12 @@
 package com.github.dezzk.monjaro_music.data.files
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.MediaMetadataRetriever
 import com.github.dezzk.monjaro_music.core.ext.EMPTY
 import com.github.dezzk.monjaro_music.data.MetadataCache
 import java.io.File
+import java.util.Locale
 
 
 /**
@@ -19,6 +21,13 @@ data class CachedFileMetadata(
         val title = title.trim().ifEmpty { file.nameWithoutExtension }
         val artist = artist.trim()
         return if (artist.isEmpty()) title else "$artist - $title"
+    }
+
+    fun getTrackDuration(): String {
+        val inSeconds = duration / 1000
+        val minutes = inSeconds / 60
+        val seconds = inSeconds % 60
+        return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
     }
 }
 

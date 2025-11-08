@@ -53,10 +53,12 @@ class ExplorerAdapter(
 		with(holder) {
 			icon.setColorFilter(R.color.mainBackground)
 			icon.setImageResource(if (file.isDirectory) R.mipmap.ic_directory else R.mipmap.ic_track)
-			if (file.isDirectory)
+			if (file.isDirectory) {
 				title.text = file.name
-			else {
-				updateFileMetadataInBackground(file, title)
+				duration.visibility = View.GONE
+			} else {
+				updateFileMetadataInBackground(file, title, duration)
+				duration.visibility = View.VISIBLE
 			}
 
 			// text/icon color
@@ -68,6 +70,7 @@ class ExplorerAdapter(
 				divider.visibility = View.VISIBLE
 			icon.setColorFilter(itemColor)
 			title.setTextColor(itemColor)
+			duration.setTextColor(itemColor)
 
 			// selection states
 			currentlyPlayingView.alpha = if (isSelected(file)) OPAQUE else TRANSPARENT
@@ -139,19 +142,26 @@ class ExplorerAdapter(
 		return selection == file.absolutePath
 	}
 
-	private fun updateFileMetadataInBackground(file: ExplorerFile, textView: TextView) {
+	private fun updateFileMetadataInBackground(
+		file: ExplorerFile,
+		titleTextView: TextView,
+		durationTextView: TextView,
+	) {
 		val cachedMetadata = FileMetadata.getCachedMetadata(file)
 		if (cachedMetadata != null) {
-			textView.text = cachedMetadata.getTrackTitle(file);
+			titleTextView.text = cachedMetadata.getTrackTitle(file);
+			durationTextView.text = cachedMetadata.getTrackDuration();
 			return;
 		}
 
-		textView.text = file.nameWithoutExtension
+		titleTextView.text = file.nameWithoutExtension
+		durationTextView.text = "00:00";
 		executor.execute {
 			val metadata = FileMetadata.retrieveMetadata(file)
 
 			mainHandler.post {
-				textView.text = metadata.getTrackTitle(file)
+				titleTextView.text = metadata.getTrackTitle(file)
+				durationTextView.text = metadata.getTrackDuration();
 				FileMetadata.cacheMetadata(file, metadata)
 			}
 		}
