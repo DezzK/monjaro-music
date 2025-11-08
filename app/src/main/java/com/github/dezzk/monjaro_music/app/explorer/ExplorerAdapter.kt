@@ -1,5 +1,7 @@
 package com.github.dezzk.monjaro_music.app.explorer
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.github.dezzk.monjaro_music.data.files.ExplorerFile
 import com.github.dezzk.monjaro_music.data.files.FileMetadata
 import com.github.dezzk.monjaro_music.databinding.ExplorerItemBinding
 import java.io.File
+import java.util.concurrent.Executors
 
 
 /**
@@ -33,6 +36,8 @@ class ExplorerAdapter(
 	// otherwise, whatever cached list that was used to initialize the adapter will be changed whenever the data set is changed
 	private val files: ArrayList<ExplorerFile> = ArrayList(explorerFiles)
 	private var originals = ArrayList(files)
+	private val executor = Executors.newSingleThreadExecutor()
+	private val mainHandler = Handler(Looper.getMainLooper())
 
 	override fun getItemCount(): Int {
 		return files.size
@@ -48,14 +53,10 @@ class ExplorerAdapter(
 		with(holder) {
 			icon.setColorFilter(R.color.mainBackground)
 			icon.setImageResource(if (file.isDirectory) R.mipmap.ic_directory else R.mipmap.ic_track)
-			title.text = if (file.isDirectory)
-				file.name
+			if (file.isDirectory)
+				title.text = file.name
 			else {
-				val metadata = FileMetadata(file)
-				val title = metadata.title.trim().ifEmpty { file.nameWithoutExtension }
-				val artist = metadata.artist.trim()
-
-				if (artist.isEmpty()) title else "$artist - $title"
+				updateFileMetadataInBackground(file, title)
 			}
 
 			// text/icon color
@@ -136,6 +137,25 @@ class ExplorerAdapter(
 	// indicates whether the file should be marked as selected or not
 	private fun isSelected(file: ExplorerFile): Boolean {
 		return selection == file.absolutePath
+	}
+
+	private fun updateFileMetadataInBackground(file: ExplorerFile, textView: TextView) {
+		val cachedMetadata = FileMetadata.getCachedMetadata(file)
+		if (cachedMetadata != null) {
+			textView.text = cachedMetadata.getTrackTitle(file);
+			return;
+		}
+
+		textView.text = file.nameWithoutExtension
+		executor.execute {
+			val metadata = FileMetadata.retrieveMetadata(file)
+
+			mainHandler.post {
+				textView.text = metadata.getTrackTitle(file)
+				FileMetadata.cacheMetadata(file, metadata)
+			}
+		}
+
 	}
 
 	// ViewHolder class

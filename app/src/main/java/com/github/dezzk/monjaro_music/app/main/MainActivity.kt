@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.github.dezzk.monjaro_music.R
 import com.github.dezzk.monjaro_music.data.State
+import com.github.dezzk.monjaro_music.data.files.FileMetadata
 
 class MainActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 
 		// night mode + theme
+		FileMetadata.initialize(applicationContext)
 		State.initialize(applicationContext) // initialize the state while we're at it
 		AppCompatDelegate.setDefaultNightMode(State.nightMode)
 		setTheme(R.style.AppTheme) // replace the splash screen

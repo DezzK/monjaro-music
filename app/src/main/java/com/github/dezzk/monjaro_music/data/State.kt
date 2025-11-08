@@ -126,7 +126,7 @@ object State {
 			// Play Store keeps saying that the ffmpeg.setDataSource throws an illegalArgumentException...
 			// to me the above check should fix that, but it didn't so I just try/catch the fucker
 			try {
-				val metadata = FileMetadata(f)
+				val metadata = FileMetadata.getMetadata(f)
 				title = metadata.title
 				album = metadata.album
 				artist = metadata.artist
