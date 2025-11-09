@@ -21,9 +21,7 @@
 		app:cornerRadius="@dimen/cornerRadiusLarge"
 		app:fillColor="@color/breadcrumbBackground"
 		app:strokeColor="@color/breadcrumbBorder"
-		app:strokeWidth="1dp"
-		tools:visibility="gone"
-		>
+		app:strokeWidth="1dp">
 
 		<!--back button-->
 		<com.github.dezzk.monjaro_music.core.ExtendedImageButton
@@ -35,8 +33,7 @@
 			android:tint="@color/breadcrumbForeground"
 			app:cornerRadiusBottomLeft="@dimen/cornerRadiusLarge"
 			app:cornerRadiusTopLeft="@dimen/cornerRadiusLarge"
-			app:fillColor="@color/breadcrumbBackground"
-			/>
+			app:fillColor="@color/breadcrumbBackground" />
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/recyclerViewBreadcrumbs"
@@ -47,8 +44,7 @@
 			android:layout_weight="1"
 			android:orientation="horizontal"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			tools:listitem="@layout/breadcrumb_bar_item"
-			/>
+			tools:listitem="@layout/breadcrumb_bar_item" />
 
 	</com.github.dezzk.monjaro_music.core.ExtendedLinearLayout>
 

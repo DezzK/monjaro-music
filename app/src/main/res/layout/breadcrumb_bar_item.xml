@@ -22,7 +22,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textColor="@color/breadcrumbForeground"
-			android:textSize="@dimen/textMedium"
+			android:textSize="@dimen/textLarge"
 			tools:text="Directory"
 			/>
 
@@ -34,7 +34,7 @@
 		android:padding="@dimen/spacingSmall"
 		android:text="@string/breadcrumbSeparator"
 		android:textColor="@color/breadcrumbForeground"
-		android:textSize="@dimen/textMedium"
+		android:textSize="@dimen/textLarge"
 		/>
 
 </LinearLayout>
