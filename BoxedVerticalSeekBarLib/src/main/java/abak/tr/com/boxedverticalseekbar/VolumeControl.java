@@ -12,9 +12,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Region;
 import android.graphics.drawable.BitmapDrawable;
 
 import androidx.core.content.ContextCompat;
@@ -85,6 +86,7 @@ public class VolumeControl extends View {
     private OnValuesChangeListener mOnValuesChangeListener;
     private int backgroundColor;
     private int borderColor;
+    private int imageTintColor;
     private int mDefaultValue;
     private Bitmap mDefaultImage;
     private Bitmap mMinImage;
@@ -141,6 +143,7 @@ public class VolumeControl extends View {
             progressColor = a.getColor(R.styleable.VolumeControl_progressColor, progressColor);
             backgroundColor = a.getColor(R.styleable.VolumeControl_backgroundColor, backgroundColor);
             borderColor = a.getColor(R.styleable.VolumeControl_borderColor, borderColor);
+            imageTintColor = a.getColor(R.styleable.VolumeControl_imageTintColor, imageTintColor);
 
             mTextSize = (int) a.getDimension(R.styleable.VolumeControl_textSize, mTextSize);
             textColor = a.getColor(R.styleable.VolumeControl_textColor, textColor);
@@ -238,6 +241,8 @@ public class VolumeControl extends View {
     }
 
     private void drawIcon(Bitmap bitmap, Canvas canvas) {
+        Paint tintPaint = new Paint();
+        tintPaint.setColorFilter(new PorterDuffColorFilter(imageTintColor, PorterDuff.Mode.SRC_IN));
         bitmap = getResizedBitmap(bitmap, canvas.getWidth() / 2, canvas.getWidth() / 2);
         canvas.drawBitmap(
                 bitmap,
@@ -247,7 +252,7 @@ public class VolumeControl extends View {
                         (canvas.getWidth() / 3) + bitmap.getWidth(),
                         canvas.getHeight() - mtextBottomPadding
                 ),
-                null
+                tintPaint
         );
     }
 

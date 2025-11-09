@@ -16,6 +16,7 @@
         <attr name="progressColor" format="color" />
         <attr name="backgroundColor" format="color" />
         <attr name="borderColor" format="color" />
+        <attr name="imageTintColor" format="color" />
 
         <attr name="textSize" format="dimension"/>
         <attr name="textColor" format="color"/>

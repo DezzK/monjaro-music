@@ -1,5 +1,4 @@
 <resources>
-
 	<dimen name="breadcrumbBarHeight">40dp</dimen>
 	<dimen name="mediaInfoBarHeight">80dp</dimen>
 	<dimen name="seekBarHeight">84dp</dimen>
@@ -49,6 +48,4 @@
 	<dimen name="durationQuick">200</dimen>
 	<dimen name="durationQuicker">150</dimen>
 	<dimen name="durationSlow">500</dimen>
-
-	
 </resources>
