@@ -19,9 +19,9 @@
 	<color name="multiSelectBorder">#CCC</color> <!-- used for select bar, and settings sheet border -->
 
 	<color name="controlsChapters">#444</color>
+	<color name="seekBackground">#E0E0E0</color>
 	<color name="seekProgress">#B1B1B1</color>
 	<color name="seekProgressSettings">#2CCC</color>
-	<color name="seekBackground">#D1D1D1</color>
 	<color name="seekPrimary">#000</color>
 	<color name="seekSecondary">#333</color>
 

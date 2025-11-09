@@ -13,8 +13,8 @@
 	<color name="breadcrumbBorder">#333</color>
 	<color name="multiSelectBorder">#333</color> <!-- #101010 used for select bar, and settings sheet border -->
 
-	<color name="seekProgress">#666</color>
 	<color name="seekBackground">#161616</color>
+	<color name="seekProgress">#505050</color>
 	<color name="seekPrimary">#FFF</color>
 	<color name="seekSecondary">#EEE</color>
 
