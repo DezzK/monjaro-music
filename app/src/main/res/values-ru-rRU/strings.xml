@@ -25,6 +25,13 @@
 	<string name="addToSelected">Добавить в выбранное</string>
 	<string name="cancelButton">Отмена</string>
 	<string name="search">Поиск</string>
+
+	<plurals name="selectedCount">
+		<item quantity="one">Выбран %1$d трек</item>
+		<item quantity="few">Выбрано %1$d трека</item>
+		<item quantity="many">Выбрано %1$d треков</item>
+	</plurals>
+
 	<string name="sleepTimer">Таймер сна</string>
 	<string name="sleepTimerToggle">Переключить таймер сна</string>
 	<string name="seekJumpValue">%1$d секунд</string>
