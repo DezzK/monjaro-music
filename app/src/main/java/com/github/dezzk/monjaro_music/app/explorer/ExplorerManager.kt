@@ -82,7 +82,10 @@ class ExplorerManager(
 			Moirai.MAIN.post {
 
 				when (data.type) {
-					EventType.METADATA_UPDATE -> explorerAdapter.updateSelection(State.Track.path)
+					EventType.METADATA_UPDATE -> {
+						explorerAdapter.updateSelection(State.Track.path)
+						scrollToSelectedTrack()
+					}
 					EventType.DIR_CHANGE -> onDirectoryChange(State.currentDirectory)
 					EventType.PLAY_SELECTED -> explorerAdapter.updateSelection(State.Track.path)
 					EventType.SELECT_MODE_INACTIVE -> {

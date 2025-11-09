@@ -214,7 +214,6 @@ class PlaybackManager :
 			}
 			updateSeek(nextChapter.startTime.toInt())
 			if (!player.isPlaying) playPause(true)
-
 		} else {
 			playTrack(State.playlist.getNextTrack(false), false)
 		}
