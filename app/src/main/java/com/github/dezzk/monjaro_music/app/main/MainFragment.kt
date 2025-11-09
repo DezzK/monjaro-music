@@ -44,8 +44,6 @@ class MainFragment : Fragment() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		audioManager = requireActivity().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-
 		// storage permission...must be in onCreate
 		permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
 			if (isGranted) {
@@ -94,13 +92,13 @@ class MainFragment : Fragment() {
 				explorerManager.initialize()
 
 				// volume control
+				audioManager = requireActivity().getSystemService(Context.AUDIO_SERVICE) as AudioManager
 				binding.volumeControl.min = audioManager.getStreamMinVolume(VOLUME_STREAM)
 				binding.volumeControl.max = audioManager.getStreamMaxVolume(VOLUME_STREAM)
 				binding.volumeControl.value = audioManager.getStreamVolume(VOLUME_STREAM)
 				binding.volumeControl.setOnBoxedPointsChangeListener(object : VolumeControl.OnValuesChangeListener {
 					override fun onPointsChanged(volumeControl: VolumeControl?, points: Int) {
 						audioManager.setStreamVolume(VOLUME_STREAM, points, 0)
-//						volumeControl?.value = audioManager.getStreamVolume(VOLUME_STREAM)
 					}
 
 					override fun onStartTrackingTouch(boxedPoints: VolumeControl?) {}

@@ -224,7 +224,7 @@ public class VolumeControl extends View {
 
         if (firstRun) {
             firstRun = false;
-            setValue(mPoints);
+            updateProgressByValue(mPoints);
         }
     }
 
@@ -354,10 +354,6 @@ public class VolumeControl extends View {
      * @param value The value given
      */
     private void updateProgressByValue(int value) {
-        if (mPoints == value) {
-            return;
-        }
-
         mPoints = value;
 
         mPoints = Math.min(mPoints, mMax);
@@ -390,10 +386,12 @@ public class VolumeControl extends View {
     }
 
     public void setValue(int points) {
-        points = points > mMax ? mMax : points;
-        points = points < mMin ? mMin : points;
+        points = Math.min(points, mMax);
+        points = Math.max(points, mMin);
 
-        updateProgressByValue(points);
+        if (mPoints != points) {
+            updateProgressByValue(points);
+        }
     }
 
     public int getValue() {
