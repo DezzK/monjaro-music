@@ -41,6 +41,7 @@
 	<dimen name="elevationSmall">4dp</dimen>
 	<dimen name="elevationMedium">8dp</dimen>
 	<dimen name="elevationLarge">12dp</dimen>
+	<dimen name="elevationXLarge">24dp</dimen>
 
 	<dimen name="transparent">0</dimen>
 	<dimen name="opaque">1</dimen>
