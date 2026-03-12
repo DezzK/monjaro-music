@@ -7,11 +7,14 @@ import android.os.Build
 import android.os.Environment
 import android.os.storage.StorageManager
 import android.util.Base64
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.github.dezzk.monjaro_music.data.Const
 import com.github.dezzk.monjaro_music.data.State
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileFilter
+import java.io.FileReader
 import java.util.Arrays
 
 
@@ -67,8 +70,18 @@ class ExplorerFile(
 				files =
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
 						listVolumes()
-					else
-						arrayOf(File(EMULATED))
+					else {
+						// Pre-Android 11: try /storage listing, fall back to emulated + mounted volumes
+						val mounted = findMountedVolumes()
+						if (mounted.isNotEmpty())
+							(listOf(File(EMULATED)) + mounted).toTypedArray()
+						else
+							arrayOf(File(EMULATED))
+					}
+			} else if (path == ACTUAL_ROOT && files != null) {
+				// Even when /storage is listable, add any USB hub volumes not under /storage
+				val mounted = findMountedVolumes().filter { !it.absolutePath.startsWith(ACTUAL_ROOT) }
+				if (mounted.isNotEmpty()) files = files + mounted.toTypedArray()
 			}
 
 			if (files == null) return ArrayList()
@@ -91,13 +104,55 @@ class ExplorerFile(
 		@RequiresApi(Build.VERSION_CODES.R)
 		private fun listVolumes(): Array<File> {
 			val context = State.applicationContext
+			val volumes = mutableSetOf<File>()
 
+			// 1. StorageManager volumes (standard path)
 			val storageManager = context.getSystemService(Context.STORAGE_SERVICE) as StorageManager
-			return ArrayList(storageManager.storageVolumes.mapNotNull {
-				if (it.directory?.absolutePath == EMULATED_ZERO) File(EMULATED) // leaving this as is, causes a minor navigation problem...we end up with the breadcrumbs looking like storage/0/0 when navigating
-				else it.directory
+			for (sv in storageManager.storageVolumes) {
+				val dir = sv.directory ?: continue
+				if (dir.absolutePath == EMULATED_ZERO) volumes.add(File(EMULATED))
+				else volumes.add(dir)
+			}
 
-			}).toTypedArray()
+			// 2. Scan /proc/mounts for USB drives connected through a hub
+			// These may not appear in StorageManager but are mounted by the kernel
+			volumes.addAll(findMountedVolumes())
+
+			return volumes.toTypedArray()
+		}
+
+		// Parses /proc/mounts to find externally mounted USB/SD volumes
+		// that may not be reported by StorageManager (e.g. drives through a USB hub)
+		private fun findMountedVolumes(): List<File> {
+			val usbFileSystems = setOf("vfat", "exfat", "ntfs", "ext4", "fuseblk", "texfat", "sdfat")
+			val ignoredPrefixes = listOf("/storage/emulated", "/data", "/system", "/cache", "/dev")
+			val knownMountPrefixes = listOf("/mnt/media_rw/", "/mnt/usb/", "/mnt/USB/", "/mnt/udisk/", "/storage/")
+			val result = mutableListOf<File>()
+
+			try {
+				BufferedReader(FileReader("/proc/mounts")).use { reader ->
+					reader.forEachLine { line ->
+						val parts = line.split(" ")
+						if (parts.size < 3) return@forEachLine
+
+						val mountPoint = parts[1]
+						val fsType = parts[2]
+
+						if (!usbFileSystems.contains(fsType)) return@forEachLine
+						if (ignoredPrefixes.any { mountPoint.startsWith(it) }) return@forEachLine
+						if (!knownMountPrefixes.any { mountPoint.startsWith(it) }) return@forEachLine
+
+						val dir = File(mountPoint)
+						if (dir.exists() && dir.canRead()) {
+							result.add(dir)
+						}
+					}
+				}
+			} catch (e: Exception) {
+				Log.w("ExplorerFile", "Failed to parse /proc/mounts", e)
+			}
+
+			return result
 		}
 	}
 }

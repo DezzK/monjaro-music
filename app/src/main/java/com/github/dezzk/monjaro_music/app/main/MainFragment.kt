@@ -6,9 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +40,7 @@ class MainFragment : Fragment() {
 
 	private lateinit var binding: MainFragmentBinding
 	private lateinit var permissionRequest: ActivityResultLauncher<String>
+	private lateinit var manageStorageRequest: ActivityResultLauncher<Intent>
 	private val VOLUME_STREAM = AudioManager.STREAM_MUSIC
 	private lateinit var audioManager: AudioManager
 	private lateinit var volumeCheckRunnable: Runnable
@@ -48,13 +53,17 @@ class MainFragment : Fragment() {
 		permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
 			if (isGranted) {
 				initialize()
-
 			} else {
 				binding.layoutPermission.root.visibility = View.VISIBLE
 				binding.layoutPermission.buttonGrantPermission.setOnClickListener {
-					initialize()
+					requestStoragePermission()
 				}
 			}
+		}
+
+		// Android 11+ MANAGE_EXTERNAL_STORAGE requires a Settings intent
+		manageStorageRequest = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+			initialize()
 		}
 
 		// back button
@@ -77,10 +86,29 @@ class MainFragment : Fragment() {
 		EventBus.send(SystemEvent(EventSource.FRAGMENT, EventType.APP_FOREGROUNDED))
 	}
 
+	private fun hasStoragePermission(): Boolean {
+		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			Environment.isExternalStorageManager()
+		} else {
+			ContextCompat.checkSelfPermission(requireContext(), DISK_PERMISSION) == PackageManager.PERMISSION_GRANTED
+		}
+	}
+
+	private fun requestStoragePermission() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+				data = Uri.parse("package:${requireContext().packageName}")
+			}
+			manageStorageRequest.launch(intent)
+		} else {
+			permissionRequest.launch(DISK_PERMISSION)
+		}
+	}
+
 	// initializes everything except the service!
 	private fun initialize() {
 		when {
-			ContextCompat.checkSelfPermission(requireContext(), DISK_PERMISSION) == PackageManager.PERMISSION_GRANTED -> {
+			hasStoragePermission() -> {
 				binding.layoutPermission.root.visibility = View.GONE
 
 				// breadcrumbs
@@ -132,10 +160,10 @@ class MainFragment : Fragment() {
 				State.activity = WeakReference(requireActivity())
 			}
 			shouldShowRequestPermissionRationale(DISK_PERMISSION) -> {
-				permissionRequest.launch(DISK_PERMISSION)
+				requestStoragePermission()
 			}
 			else -> {
-				permissionRequest.launch(DISK_PERMISSION)
+				requestStoragePermission()
 			}
 		}
 	}
