@@ -51,7 +51,7 @@
             app:progressColor="@color/seekProgress"
 			app:imageTintColor="@color/seekPrimary"
             app:textColor="@color/color_text"
-			app:libCornerRadius="25"
+			app:libCornerRadius="18"
             app:imageEnabled="true"
             app:defaultImage="@drawable/ic_volume_down_black_48dp"
             app:maxImage="@drawable/ic_volume_up_black_48dp"

@@ -201,12 +201,12 @@ public class VolumeControl extends View {
         canvas.drawLine((float) getWidth() / 2, getHeight(), (float) getWidth() / 2, mProgressSweep, mProgressPaint);
 
         // Border
-//        mPath = new Path();
-//        mPath.addRoundRect(new RectF(1, 1, scrWidth - 1, scrHeight - 1), mCornerRadius, mCornerRadius, Path.Direction.CCW);
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setColor(borderColor);
-//        paint.setStrokeWidth(0);
-//        canvas.drawPath(mPath, paint);
+        mPath = new Path();
+        mPath.addRoundRect(new RectF(1, 1, scrWidth - 1, scrHeight - 1), mCornerRadius, mCornerRadius, Path.Direction.CCW);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(borderColor);
+        paint.setStrokeWidth(0);
+        canvas.drawPath(mPath, paint);
 
         if (mImageEnabled && mDefaultImage != null && mMinImage != null && mMaxImage != null) {
             //If image is enabled, text will not be shown
