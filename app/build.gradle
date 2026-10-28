@@ -13,14 +13,11 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 30
 
-        versionCode 27
-        versionName "4.1"
-
         versionCode rootProject.ext.appVersionCode
         versionName rootProject.ext.appVersionName
 
         // Set the output APK name
-        setProperty("archivesBaseName", "monjaro-music-${versionName}")
+        setProperty("archivesBaseName", "monjaro-music-${rootProject.ext.appVersionTag}")
     }
 
     bundle {
